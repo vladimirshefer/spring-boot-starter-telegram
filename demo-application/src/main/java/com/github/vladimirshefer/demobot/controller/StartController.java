@@ -7,7 +7,7 @@ import com.github.vladimirshefer.springbootstartertelegram.annotations.TelegramC
 @TelegramController
 public class StartController {
 
-  @RequestMapping
+  @RequestMapping("/start")
   public String start(@MessageBody String body) {
     return "Hello, world!";
   }
