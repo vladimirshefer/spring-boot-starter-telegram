@@ -1,4 +1,4 @@
-package com.github.vladimirshefer.springbootstartertelegram.scan;
+package com.github.vladimirshefer.springbootstartertelegram.telegram.util;
 
 import static java.util.Arrays.asList;
 
@@ -6,7 +6,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-public class ReflectionUtils {
+public class ReflectionUtil {
 
   public static boolean hasAnnotation(Class<?> targetClass, Class<?> annotation){
     return Arrays.stream(targetClass.getAnnotations())

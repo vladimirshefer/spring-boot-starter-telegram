@@ -1,6 +1,6 @@
 package com.github.vladimirshefer.springbootstartertelegram.scan;
 
-import static com.github.vladimirshefer.springbootstartertelegram.scan.ReflectionUtils.hasAnnotation;
+import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.ReflectionUtil.hasAnnotation;
 
 import com.github.vladimirshefer.springbootstartertelegram.annotations.TelegramController;
 import java.util.HashMap;

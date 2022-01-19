@@ -1,7 +1,7 @@
 package com.github.vladimirshefer.springbootstartertelegram.telegram.dto;
 
 import com.github.vladimirshefer.springbootstartertelegram.annotations.RequestMapping;
-import com.github.vladimirshefer.springbootstartertelegram.scan.ReflectionUtils;
+import com.github.vladimirshefer.springbootstartertelegram.telegram.util.ReflectionUtil;
 import java.lang.reflect.Method;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,7 +33,7 @@ public class MappingDefinition {
         .originalClass(originalClass)
         .originalMethod(originalMethod)
         .targetClass(targetClass)
-        .targetMethod(ReflectionUtils.getSameMethod(targetClass, originalMethod))
+        .targetMethod(ReflectionUtil.getSameMethod(targetClass, originalMethod))
         .mappingAnnotation(mappingAnnotation)
         .requestMappingValue(mappingAnnotation.value())
         .controllerName(controllerName)
