@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+## Spring
+application-local.properties
+application-local.yml
+application-local.yaml
