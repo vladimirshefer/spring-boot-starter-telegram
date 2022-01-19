@@ -1,11 +1,15 @@
 package com.github.vladimirshefer.springbootstartertelegram.handler;
 
+import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getChatId;
+
 import com.github.vladimirshefer.springbootstartertelegram.scan.MappingDefinitionsManager;
 import com.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
 import java.util.stream.IntStream;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
@@ -14,13 +18,30 @@ public class UpdateHandler {
 
   private final MappingDefinitionsManager mappingDefinitionsManager;
 
-  public void handleMessage(Update update) {
-    MappingDefinition mappingDefinition = mappingDefinitionsManager.findMappingDefinition(update).orElse(null);
+  public BotApiMethod<?> handleMessage(
+      Update update
+  ) {
+    MappingDefinition mappingDefinition = mappingDefinitionsManager.findMappingDefinition(update)
+        .orElse(null);
     if (mappingDefinition == null) {
-      return;
+      return null;
     }
 
     Object result = invokeHandler(mappingDefinition, update);
+
+    if (result == null) {
+      return null;
+    }
+
+    if (result instanceof String) {
+      return sendSimpleMessage(update, (String) result);
+    }
+
+    return sendSimpleMessage(update, result.toString());
+  }
+
+  private SendMessage sendSimpleMessage(Update update, String result) {
+    return new SendMessage(getChatId(update), result);
   }
 
   @SneakyThrows
@@ -38,6 +59,5 @@ public class UpdateHandler {
     return IntStream.range(0, parameterCount).mapToObj(it -> null).toArray();
     // TODO
   }
-
 
 }

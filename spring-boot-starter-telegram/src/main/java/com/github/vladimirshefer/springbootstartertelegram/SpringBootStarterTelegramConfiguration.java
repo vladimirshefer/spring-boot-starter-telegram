@@ -1,7 +1,6 @@
 package com.github.vladimirshefer.springbootstartertelegram;
 
 import com.github.vladimirshefer.springbootstartertelegram.handler.UpdateHandler;
-import com.github.vladimirshefer.springbootstartertelegram.scan.MappingDefinitionsManager;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
@@ -31,9 +31,13 @@ public class SpringBootStarterTelegramConfiguration {
       UpdateHandler updateHandler
   ) {
     return new TelegramLongPollingBot() {
+      @SneakyThrows
       @Override
       public void onUpdateReceived(Update update) {
-        updateHandler.handleMessage(update);
+        BotApiMethod<?> answer = updateHandler.handleMessage(update);
+        if (answer != null) {
+          this.sendApiMethod(answer);
+        }
       }
 
       @Override
