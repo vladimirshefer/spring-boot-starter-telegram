@@ -2,13 +2,13 @@ package com.github.vladimirshefer.springbootstartertelegram.scan;
 
 import com.github.vladimirshefer.springbootstartertelegram.annotations.RequestMapping;
 import com.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
+import com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
@@ -24,10 +24,7 @@ public class MappingDefinitionsManager {
   }
 
   public Optional<MappingDefinition> findMappingDefinition(Update update) {
-    String text = Optional.ofNullable(update)
-        .map(Update::getMessage)
-        .map(Message::getText)
-        .orElse(null);
+    String text = UpdateUtil.getMessageTextOrNull(update);
 
     if (text == null) {
       return Optional.empty();
