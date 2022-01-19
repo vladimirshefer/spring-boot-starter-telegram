@@ -1,10 +1,12 @@
 package com.github.vladimirshefer.springbootstartertelegram.handler;
 
 import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getChatId;
+import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getMessageTextOrNull;
 
+import com.github.vladimirshefer.springbootstartertelegram.annotations.MessageBody;
 import com.github.vladimirshefer.springbootstartertelegram.scan.MappingDefinitionsManager;
 import com.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
-import java.util.stream.IntStream;
+import java.lang.annotation.Annotation;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
@@ -51,13 +53,25 @@ public class UpdateHandler {
     return mappingDefinition.getTargetMethod().invoke(mappingDefinition.getController(), arguments);
   }
 
-  private Object[] getArgumentsForControllerMethodInvocation(
+  public Object[] getArgumentsForControllerMethodInvocation(
       MappingDefinition mappingDefinition,
       Update update
   ) {
     int parameterCount = mappingDefinition.getOriginalMethod().getParameterCount();
-    return IntStream.range(0, parameterCount).mapToObj(it -> null).toArray();
-    // TODO
+    Object[] parametersArray = new Object[parameterCount];
+
+    Annotation[][] parameterAnnotationsArray = mappingDefinition.getOriginalMethod()
+        .getParameterAnnotations();
+    for (int i = 0; i < parameterAnnotationsArray.length; i++) {
+      Annotation[] parameterAnnotations = parameterAnnotationsArray[i];
+      for (Annotation parameterAnnotation : parameterAnnotations) {
+        if (parameterAnnotation.annotationType().equals(MessageBody.class)) {
+          parametersArray[i] = getMessageTextOrNull(update);
+        }
+      }
+    }
+
+    return parametersArray;
   }
 
 }
