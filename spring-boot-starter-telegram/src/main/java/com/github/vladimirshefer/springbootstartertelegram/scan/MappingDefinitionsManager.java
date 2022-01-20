@@ -4,14 +4,13 @@ import com.github.vladimirshefer.springbootstartertelegram.annotations.RequestMa
 import com.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
 import com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class MappingDefinitionsManager {
@@ -28,15 +27,38 @@ public class MappingDefinitionsManager {
   public Optional<MappingDefinition> findMappingDefinition(Update update) {
     String text = UpdateUtil.getMessageTextOrNull(update);
 
-    if (text != null){
-      return findDefinitionForText(text);
-    }
 
-      return findDefinitionByDefault();
+    if (text != null){
+      return findDefinitionForText(text, update);
+    }else{
+      return findDefinitionForDefaultMapping(update);
+    }
 
   }
 
-  private Optional<MappingDefinition> findDefinitionForText(String text) {
+  private Optional<MappingDefinition> findDefinitionForDefaultMapping(Update update) {
+    Stream<MappingDefinition> mappingDefinitionStream = mappingDefinitions.stream()
+      .filter(it -> it.getMappingAnnotation().regex().equals(""))
+      .filter(it -> it.getMappingAnnotation().value().equals(""));
+
+    if(UpdateUtil.getPollOrNull(update) != null){
+      mappingDefinitionStream = mappingDefinitionStream.filter(method ->
+        Arrays.asList(method.getTargetMethod().getParameterTypes()).contains(Poll.class));
+    }
+    if(UpdateUtil.getPhotoOrNull(update) != null){
+      mappingDefinitionStream = mappingDefinitionStream.filter(method ->
+        Arrays.asList(method.getTargetMethod().getParameterTypes()).contains(PhotoSize.class));
+    }
+
+    List<MappingDefinition> listOfMappingDefinitions = mappingDefinitionStream.collect(Collectors.toList());
+
+    if (listOfMappingDefinitions.size() == 1){
+       return Optional.ofNullable(listOfMappingDefinitions.get(0));
+    }
+    return Optional.empty();
+  }
+
+  private Optional<MappingDefinition> findDefinitionForText(String text, Update update) {
     Optional<MappingDefinition> definitionByRegex = findDefinitionByRegex(text);
 
     if (definitionByRegex.isPresent()) {

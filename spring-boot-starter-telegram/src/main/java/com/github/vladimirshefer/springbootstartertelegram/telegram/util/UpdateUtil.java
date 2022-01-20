@@ -1,7 +1,10 @@
 package com.github.vladimirshefer.springbootstartertelegram.telegram.util;
 
+import java.util.List;
 import java.util.Optional;
+
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 
@@ -46,7 +49,7 @@ public class UpdateUtil {
         .orElse(null);
   }
 
-  public static Optional<Poll> getPollOptional(Update update){
+  private static Optional<Poll> getPollOptional(Update update){
     return getMessageOptional(update)
       .map(Message::getPoll);
   }
@@ -55,5 +58,13 @@ public class UpdateUtil {
   public static Poll getPollOrNull(Update update){
     return getPollOptional(update)
       .orElse(null);
+  }
+
+  public static List<PhotoSize> getPhotoOrNull(Update update) {
+    return getPhotoOptional(update).orElse(null);
+  }
+
+  private static Optional<List<PhotoSize>> getPhotoOptional(Update update) {
+    return getMessageOptional(update).map(Message::getPhoto);
   }
 }
