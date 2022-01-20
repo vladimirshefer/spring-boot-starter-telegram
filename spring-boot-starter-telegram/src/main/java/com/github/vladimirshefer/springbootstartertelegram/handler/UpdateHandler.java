@@ -1,18 +1,19 @@
 package com.github.vladimirshefer.springbootstartertelegram.handler;
 
-import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getChatId;
-import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getMessageTextOrNull;
-
 import com.github.vladimirshefer.springbootstartertelegram.annotations.MessageBody;
 import com.github.vladimirshefer.springbootstartertelegram.scan.MappingDefinitionsManager;
 import com.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
-import java.lang.annotation.Annotation;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+
+import java.lang.annotation.Annotation;
+
+import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getChatId;
+import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getMessageTextOrNull;
 
 @Component
 @RequiredArgsConstructor
@@ -21,10 +22,10 @@ public class UpdateHandler {
   private final MappingDefinitionsManager mappingDefinitionsManager;
 
   public BotApiMethod<?> handleMessage(
-      Update update
+          Update update
   ) {
     MappingDefinition mappingDefinition = mappingDefinitionsManager.findMappingDefinition(update)
-        .orElse(null);
+            .orElse(null);
     if (mappingDefinition == null) {
       return null;
     }
@@ -49,19 +50,27 @@ public class UpdateHandler {
   @SneakyThrows
   private Object invokeHandler(MappingDefinition mappingDefinition, Update update) {
     Object[] arguments = getArgumentsForControllerMethodInvocation(
-        mappingDefinition, update);
+            mappingDefinition, update);
     return mappingDefinition.getTargetMethod().invoke(mappingDefinition.getController(), arguments);
   }
 
   public Object[] getArgumentsForControllerMethodInvocation(
-      MappingDefinition mappingDefinition,
-      Update update
+          MappingDefinition mappingDefinition,
+          Update update
   ) {
     int parameterCount = mappingDefinition.getOriginalMethod().getParameterCount();
     Object[] parametersArray = new Object[parameterCount];
 
+    Class<?>[] parameterTypes = mappingDefinition.getOriginalMethod().getParameterTypes();
+
+    for (int i = 0; i < parameterTypes.length; i++) {
+      if (parameterTypes[i].equals(Update.class)) {
+        parametersArray[i] = update;
+      }
+    }
+
     Annotation[][] parameterAnnotationsArray = mappingDefinition.getOriginalMethod()
-        .getParameterAnnotations();
+            .getParameterAnnotations();
     for (int i = 0; i < parameterAnnotationsArray.length; i++) {
       Annotation[] parameterAnnotations = parameterAnnotationsArray[i];
       for (Annotation parameterAnnotation : parameterAnnotations) {
@@ -70,6 +79,7 @@ public class UpdateHandler {
         }
       }
     }
+
 
     return parametersArray;
   }
