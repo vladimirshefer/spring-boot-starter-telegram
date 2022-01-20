@@ -4,6 +4,7 @@ import com.github.vladimirshefer.springbootstartertelegram.annotations.MessageBo
 import com.github.vladimirshefer.springbootstartertelegram.annotations.RequestMapping;
 import com.github.vladimirshefer.springbootstartertelegram.annotations.TelegramController;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 
 @TelegramController
 public class StartController {
@@ -16,5 +17,10 @@ public class StartController {
   @RequestMapping(regex = "[a-z]{2}")
   public String blabla(@MessageBody String body, Update update){
     return body;
+  }
+
+  @RequestMapping
+  public String pollCheck(Poll poll){
+    return "done!";
   }
 }

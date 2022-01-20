@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 
 import java.lang.annotation.Annotation;
 
-import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getChatId;
-import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getMessageTextOrNull;
+import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.*;
 
 @Component
 @RequiredArgsConstructor
@@ -66,6 +66,9 @@ public class UpdateHandler {
     for (int i = 0; i < parameterTypes.length; i++) {
       if (parameterTypes[i].equals(Update.class)) {
         parametersArray[i] = update;
+      }
+      if (parameterTypes[i].equals(Poll.class)){
+        parametersArray[i] = getPollOrNull(update);
       }
     }
 

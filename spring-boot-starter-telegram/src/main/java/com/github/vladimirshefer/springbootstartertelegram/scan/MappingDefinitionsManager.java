@@ -5,6 +5,7 @@ import com.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingD
 import com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,16 +28,29 @@ public class MappingDefinitionsManager {
   public Optional<MappingDefinition> findMappingDefinition(Update update) {
     String text = UpdateUtil.getMessageTextOrNull(update);
 
-    if (text == null) {
-      return Optional.empty();
+    if (text != null){
+      return findDefinitionForText(text);
     }
 
+      return findDefinitionByDefault();
+
+  }
+
+  private Optional<MappingDefinition> findDefinitionForText(String text) {
     Optional<MappingDefinition> definitionByRegex = findDefinitionByRegex(text);
+
     if (definitionByRegex.isPresent()) {
       return definitionByRegex;
     }
 
     return findDefinitionByValue(text);
+  }
+
+  private Optional<MappingDefinition> findDefinitionByDefault() {
+    return mappingDefinitions.stream()
+      .filter(it -> "".equals(it.getMappingAnnotation().regex()))
+      .filter(it -> "".equals(it.getMappingAnnotation().value()))
+      .findAny();
   }
 
   private Optional<MappingDefinition> findDefinitionByRegex(String text) {

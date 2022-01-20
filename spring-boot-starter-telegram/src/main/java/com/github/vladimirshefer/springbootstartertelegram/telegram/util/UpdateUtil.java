@@ -3,6 +3,9 @@ package com.github.vladimirshefer.springbootstartertelegram.telegram.util;
 import java.util.Optional;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.polls.Poll;
+
+import javax.annotation.Nullable;
 
 public class UpdateUtil {
 
@@ -37,8 +40,20 @@ public class UpdateUtil {
         .map(Message::getText);
   }
 
+  @Nullable
   public static String getMessageTextOrNull(Update update) {
     return getMessageTextOptional(update)
         .orElse(null);
+  }
+
+  public static Optional<Poll> getPollOptional(Update update){
+    return getMessageOptional(update)
+      .map(Message::getPoll);
+  }
+
+  @Nullable
+  public static Poll getPollOrNull(Update update){
+    return getPollOptional(update)
+      .orElse(null);
   }
 }
