@@ -24,6 +24,10 @@ public class StartController {
   public String pollCheck(Poll poll){
     return "done!";
   }
+  @RequestMapping
+  public String pollCheck1(Poll poll){
+    return "done!";
+  }
 
   @RequestMapping
   public String sentPhoto(PhotoSize photo){

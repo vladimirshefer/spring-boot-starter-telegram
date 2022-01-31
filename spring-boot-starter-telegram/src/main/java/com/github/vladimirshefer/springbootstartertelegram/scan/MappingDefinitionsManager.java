@@ -30,8 +30,6 @@ public class MappingDefinitionsManager {
   public Optional<MappingDefinition> findMappingDefinition(Update update) {
     String text = UpdateUtil.getMessageTextOrNull(update);
 
-/*если у нас нет никаких параметров у аннотации мы идем искать методы в которые мым можем положить
-   значения по сигнатуре  */
     if (text != null) {
       return findDefinitionForText(text, update);
     } else {
@@ -44,7 +42,6 @@ public class MappingDefinitionsManager {
     Stream<MappingDefinition> mappingDefinitionStream = mappingDefinitions.stream()
       .filter(it -> it.getMappingAnnotation().regex().equals(""))
       .filter(it -> it.getMappingAnnotation().value().equals(""));
-    /* и тут проверять если необходимые параметры в методе */
     if (UpdateUtil.getPollOrNull(update) != null) {
       mappingDefinitionStream = mappingDefinitionStream.filter(method ->
         Arrays.asList(method.getTargetMethod().getParameterTypes()).contains(Poll.class));
@@ -55,12 +52,50 @@ public class MappingDefinitionsManager {
     }
 
     List<MappingDefinition> listOfMappingDefinitions = mappingDefinitionStream.collect(Collectors.toList());
-/*надо еще как до добаить типа если ничего не нашли то пытаться искать методы с параметрами Update или
- Message или метод с пустой сигнатурой*/
+
     if (listOfMappingDefinitions.size() == 1) {
       return Optional.ofNullable(listOfMappingDefinitions.get(0));
     }
+    if (listOfMappingDefinitions.size() == 0){
+      return findDefinitionWithUpdate(update);
+    }
     return Optional.empty();
+  }
+
+  private Optional<MappingDefinition> findDefinitionWithUpdate(Update update) {
+    Stream<MappingDefinition> mappingDefinitionStream = mappingDefinitions.stream()
+      .filter(it -> it.getMappingAnnotation().regex().equals(""))
+      .filter(it -> it.getMappingAnnotation().value().equals(""));
+    List<MappingDefinition> listOfUpdateMethod = mappingDefinitionStream
+      .filter(method -> Arrays.asList(method.getTargetMethod().getParameterTypes()).contains(Update.class))
+      .collect(Collectors.toList());
+
+    if (listOfUpdateMethod.size() == 1){
+      return Optional.ofNullable(listOfUpdateMethod.get(0));
+    }
+
+    if (listOfUpdateMethod.isEmpty()){
+      return findDefinitionWithEmptyDescription(update);
+    }
+
+    return Optional.empty();
+  }
+
+  private Optional<MappingDefinition> findDefinitionWithEmptyDescription(Update update) {
+    Stream<MappingDefinition> mappingDefinitionStream = mappingDefinitions.stream()
+      .filter(it -> it.getMappingAnnotation().regex().equals(""))
+      .filter(it -> it.getMappingAnnotation().value().equals(""));
+
+    List<MappingDefinition> listOfMethodWithEmptyDefinition = mappingDefinitionStream
+      .filter(method -> method.getTargetMethod().getParameterTypes().length == 0)
+      .collect(Collectors.toList());
+
+    if (listOfMethodWithEmptyDefinition.size() == 0){
+      return Optional.ofNullable(listOfMethodWithEmptyDefinition.get(0));
+    }
+
+    return Optional.empty();
+
   }
 
   private Optional<MappingDefinition> findDefinitionForText(String text, Update update) {
@@ -70,7 +105,12 @@ public class MappingDefinitionsManager {
       return definitionByRegex;
     }
 
-    return findDefinitionByValue(text);
+    Optional<MappingDefinition> definitionByValue = findDefinitionByValue(text);
+    if (definitionByValue.isPresent()){
+      return definitionByValue;
+    }
+
+    return findDefinitionWithUpdate(update);
   }
 
   private Optional<MappingDefinition> findDefinitionByDefault() {
