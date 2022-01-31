@@ -8,10 +8,12 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 
 import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.*;
 
@@ -69,6 +71,14 @@ public class UpdateHandler {
       }
       if (parameterTypes[i].equals(Poll.class)){
         parametersArray[i] = getPollOrNull(update);
+      }
+    }
+
+    // I think it`s not good-looking, maybe I do with it
+    Type[] genericParameterTypes = mappingDefinition.getOriginalMethod().getGenericParameterTypes();
+    for (int i = 0; i < genericParameterTypes.length; i++) {
+      if (genericParameterTypes[i].getTypeName().contains("PhotoSize")){
+        parametersArray[i] = getPhotoOrNull(update);
       }
     }
 

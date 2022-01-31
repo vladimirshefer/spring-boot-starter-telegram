@@ -3,15 +3,15 @@ package com.github.vladimirshefer.springbootstartertelegram.scan;
 import com.github.vladimirshefer.springbootstartertelegram.annotations.RequestMapping;
 import com.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
 import com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil;
+import org.springframework.core.ResolvableType;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -46,9 +46,12 @@ public class MappingDefinitionsManager {
       mappingDefinitionStream = mappingDefinitionStream.filter(method ->
         Arrays.asList(method.getTargetMethod().getParameterTypes()).contains(Poll.class));
     }
+
+    //I find this way for taking parameter from generic param
     if (UpdateUtil.getPhotoOrNull(update) != null) {
       mappingDefinitionStream = mappingDefinitionStream.filter(method ->
-        Arrays.asList(method.getTargetMethod().getParameterTypes()).contains(PhotoSize.class));
+        Arrays.stream(method.getTargetMethod().getGenericParameterTypes())
+          .anyMatch(p -> p.getTypeName().contains("PhotoSize")));
     }
 
     List<MappingDefinition> listOfMappingDefinitions = mappingDefinitionStream.collect(Collectors.toList());

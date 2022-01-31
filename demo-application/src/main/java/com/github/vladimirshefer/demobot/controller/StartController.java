@@ -7,6 +7,8 @@ import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 
+import java.util.List;
+
 @TelegramController
 public class StartController {
 
@@ -30,13 +32,7 @@ public class StartController {
   }
 
   @RequestMapping
-  public String sentPhoto(PhotoSize photo){
-    return "Get Photo";
-  }
-
-  @RequestMapping(regex = "[a-zA-z]*")
-  public  String getMessageAndPhoto(@MessageBody String body, PhotoSize photo){
-    return "I got it";
-
+  public List<PhotoSize> sentPhoto(List<PhotoSize> photo){
+    return photo;
   }
 }
