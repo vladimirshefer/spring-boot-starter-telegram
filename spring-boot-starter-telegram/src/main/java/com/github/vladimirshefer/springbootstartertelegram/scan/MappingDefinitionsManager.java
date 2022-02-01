@@ -93,7 +93,7 @@ public class MappingDefinitionsManager {
       .filter(method -> method.getTargetMethod().getParameterTypes().length == 0)
       .collect(Collectors.toList());
 
-    if (listOfMethodWithEmptyDefinition.size() == 0){
+    if (listOfMethodWithEmptyDefinition.size() != 0){
       return Optional.ofNullable(listOfMethodWithEmptyDefinition.get(0));
     }
 
