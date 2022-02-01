@@ -19,23 +19,11 @@ public class ControllerInvocationMethods {
     List<MappingDefinition> listOfMethods = new ArrayList<>();
 
     for (MappingDefinition method : mappingDefinitions) {
-      int numberOfMethodParameter = method.getTargetMethod().getParameterTypes().length;
-      //for empty method I need to think a bit more
-//      if (numberOfMethodParameter == 0){
-//        listOfMethods.add(method);
-//        continue;
-//      }
-
-      int numberOfFoundParameterTypes = 0;
-
-      for (MethodFilter methodFilter : methodFilters) {
-        if (methodFilter.isMatch(update, method)) {
-          numberOfFoundParameterTypes++;
+      for (MethodFilter methodFilter: methodFilters){
+        if(methodFilter.isMatch(update, method)){
+          listOfMethods.add(method);
+          break;
         }
-      }
-      // here can put <= if we find some parameters which can identify like User
-      if (numberOfFoundParameterTypes == numberOfMethodParameter) {
-        listOfMethods.add(method);
       }
     }
 
