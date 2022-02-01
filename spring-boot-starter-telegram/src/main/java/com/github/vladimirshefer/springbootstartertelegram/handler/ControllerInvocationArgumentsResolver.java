@@ -23,9 +23,9 @@ public class ControllerInvocationArgumentsResolver {
     int parametersAmount = mappingDefinition.getOriginalMethod().getParameters().length;
 
     for (int i = 0; i < parametersAmount; i++) {
-      int index = i;
-      argumentResolvers.forEach(
-        it -> it.resolve(mappingDefinition, update, parametersArray, index));
+      for (ArgumentResolver argumentResolver : argumentResolvers) {
+        argumentResolver.resolve(mappingDefinition, update, parametersArray, i);
+      }
     }
 
     return parametersArray;
