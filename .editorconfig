@@ -1,0 +1,11 @@
+# THIS FILE CONTAINS BASIC FORMATTING RULES.
+# PLEASE, USE GOOGLE CODE STYLE.
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+max_line_length = 100
+tab_width = 2
