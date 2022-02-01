@@ -15,5 +15,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+      - name: Add required environment
+        run: echo ${{ secrets.TEST_BOT_TOKEN }} >> demo-application/src/main/resources/application.properties
       - name: Build with Maven
         run: mvn clean test package
