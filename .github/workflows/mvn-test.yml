@@ -15,5 +15,5 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Build with Maven
-        run: mvn clean test package
+      - name: Build starter with Maven
+        run: mvn --projects spring-boot-starter-telegram clean package
