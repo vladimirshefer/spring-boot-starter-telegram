@@ -7,7 +7,6 @@
     <groupId>com.github.vladimirshefer</groupId>
     <artifactId>spring-boot-starter-telegram-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <artifactId>spring-boot-starter-telegram</artifactId>
   <version>0.0.1-SNAPSHOT</version>
