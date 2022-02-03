@@ -25,7 +25,7 @@ public class UpdateHandler {
   ) {
     List<MappingDefinition> listOfMappingDefinitions = mappingDefinitionsManager.findMappingDefinition(update);
     if (listOfMappingDefinitions.isEmpty()) {
-      return null;
+      return new BotApiMethod[0];
     }
 
     return invokeHandler(listOfMappingDefinitions, update);

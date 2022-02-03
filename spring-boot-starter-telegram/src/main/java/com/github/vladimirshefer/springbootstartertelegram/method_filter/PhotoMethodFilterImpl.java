@@ -12,6 +12,6 @@ public class PhotoMethodFilterImpl implements MethodFilter {
   public boolean isMatch(Update update, MappingDefinition method) {
     return Arrays
             .stream(method.getTargetMethod().getGenericParameterTypes())
-            .noneMatch(p -> p.getTypeName().contains("PhotoSize")) || update.getMessage().getPhoto() != null;
+            .noneMatch(p -> p.getTypeName().contains("PhotoSize")) || update.getMessage().getPhoto() == null;
   }
 }

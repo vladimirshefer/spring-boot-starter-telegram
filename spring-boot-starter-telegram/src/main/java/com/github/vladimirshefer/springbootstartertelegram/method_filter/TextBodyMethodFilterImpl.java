@@ -13,6 +13,6 @@ public class TextBodyMethodFilterImpl implements MethodFilter {
   public boolean isMatch(Update update, MappingDefinition method) {
     return !Arrays
             .asList(method.getTargetMethod().getParameterTypes())
-            .contains(String.class) && update.getMessage().getText() != null;
+            .contains(String.class) || update.getMessage().getText() == null;
   }
 }
