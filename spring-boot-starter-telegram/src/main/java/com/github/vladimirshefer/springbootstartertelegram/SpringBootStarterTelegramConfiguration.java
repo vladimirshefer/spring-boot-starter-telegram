@@ -1,6 +1,7 @@
 package com.github.vladimirshefer.springbootstartertelegram;
 
 import com.github.vladimirshefer.springbootstartertelegram.handler.UpdateHandler;
+import java.util.List;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -34,7 +35,7 @@ public class SpringBootStarterTelegramConfiguration {
       @SneakyThrows
       @Override
       public void onUpdateReceived(Update update) {
-        BotApiMethod<?>[] answers = updateHandler.handleMessage(update);
+        List<BotApiMethod<?>> answers = updateHandler.handleMessage(update);
         for (BotApiMethod<?> answer : answers) {
           if (answer != null) {
             this.sendApiMethod(answer);

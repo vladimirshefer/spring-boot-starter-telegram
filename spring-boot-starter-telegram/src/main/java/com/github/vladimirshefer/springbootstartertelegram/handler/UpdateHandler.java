@@ -1,17 +1,18 @@
 package com.github.vladimirshefer.springbootstartertelegram.handler;
 
+import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getChatId;
+
 import com.github.vladimirshefer.springbootstartertelegram.scan.MappingDefinitionsManager;
 import com.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-
-import java.util.List;
-
-import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getChatId;
 
 @Component
 @RequiredArgsConstructor
@@ -20,15 +21,11 @@ public class UpdateHandler {
   private final MappingDefinitionsManager mappingDefinitionsManager;
   private final ControllerInvocationArgumentsResolver controllerInvocationArgumentsResolver;
 
-  public BotApiMethod<?>[] handleMessage(
-          Update update
-  ) {
-    List<MappingDefinition> listOfMappingDefinitions = mappingDefinitionsManager.findMappingDefinition(update);
-    if (listOfMappingDefinitions.isEmpty()) {
-      return new BotApiMethod[0];
-    }
+  public List<BotApiMethod<?>> handleMessage(Update update) {
+    List<MappingDefinition> mappingDefinitions = mappingDefinitionsManager
+        .findMappingDefinition(update);
 
-    return invokeHandler(listOfMappingDefinitions, update);
+    return invokeHandlers(mappingDefinitions, update);
   }
 
   private SendMessage sendSimpleMessage(Update update, String result) {
@@ -36,32 +33,26 @@ public class UpdateHandler {
   }
 
   @SneakyThrows
-  private BotApiMethod<?>[] invokeHandler(List<MappingDefinition> listOfMapingDefinitions, Update update) {
-    Object[] results = new Object[listOfMapingDefinitions.size()];
-    BotApiMethod<?>[] answers = new BotApiMethod[listOfMapingDefinitions.size()];
-    for (int i = 0; i < listOfMapingDefinitions.size(); i++) {
-      MappingDefinition mappingDefinition = listOfMapingDefinitions.get(i);
-      Object[] arguments = getArgumentsForControllerMethodInvocation(mappingDefinition, update);
-      results[i] = mappingDefinition.getTargetMethod().invoke(mappingDefinition.getController(), arguments);
+  private List<BotApiMethod<?>> invokeHandlers(
+      List<MappingDefinition> mappingDefinitions,
+      Update update
+  ) {
+    return mappingDefinitions.stream()
+        .map(mappingDefinition -> invokeController(update, mappingDefinition))
+        .filter(Objects::nonNull)
+        .map(methodInvocationResult -> sendSimpleMessage(update, methodInvocationResult.toString()))
+        .collect(Collectors.toList());
+  }
 
-      if (results[i] == null) {
-        answers[i] = null;
-        continue;
-      }
-
-      if (results[i] instanceof String) {
-        answers[i] = sendSimpleMessage(update, (String) results[i]);
-      } else {
-        answers[i] = sendSimpleMessage(update, results[i].toString());
-      }
-
-    }
-    return answers;
+  @SneakyThrows
+  private Object invokeController(Update update, MappingDefinition mappingDefinition) {
+    Object[] arguments = getArgumentsForControllerMethodInvocation(mappingDefinition, update);
+    return mappingDefinition.getTargetMethod().invoke(mappingDefinition.getController(), arguments);
   }
 
   public Object[] getArgumentsForControllerMethodInvocation(
-          MappingDefinition mappingDefinition,
-          Update update
+      MappingDefinition mappingDefinition,
+      Update update
   ) {
     return controllerInvocationArgumentsResolver.getArguments(mappingDefinition, update);
   }
