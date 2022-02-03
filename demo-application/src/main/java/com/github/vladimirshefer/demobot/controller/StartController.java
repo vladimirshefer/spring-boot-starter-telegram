@@ -21,7 +21,7 @@ public class StartController {
     return "Thank you for your message!";
   }
 
-  @RequestMapping(regex = "[a-z]{2}")
+  @RequestMapping("[a-z]{2}")
   public String regex(String body, Update update) {
     return body;
   }
@@ -46,6 +46,21 @@ public class StartController {
    */
   @RequestMapping
   public void photos(List<PhotoSize> photos, String caption) {
+  }
+
+  @RequestMapping
+  public List<PhotoSize> sentPhoto(List<PhotoSize> photo){
+    return photo;
+  }
+
+  @RequestMapping
+  public String bdbfjki(){
+    return "EMPTY";
+  }
+
+  @RequestMapping
+  public String up(Update u){
+    return "Update";
   }
 
 }
