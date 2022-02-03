@@ -6,13 +6,13 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.Arrays;
 
-@Component
-public class TextBodyMethodFilterImpl implements MethodFilter {
 
+public class TextBodyWithEmptyAnnotationMappingValueMethodFilterImpl implements MethodFilter {
   @Override
   public boolean isMatch(Update update, MappingDefinition method) {
     return !Arrays
             .asList(method.getTargetMethod().getParameterTypes())
-            .contains(String.class) && update.getMessage().getText() != null;
+            .contains(String.class) || update.getMessage().getText() != null
+            || !method.getRequestMappingValue().isEmpty();
   }
 }
