@@ -17,7 +17,7 @@ public class StartController {
     return "Hello, world!";
   }
 
-  @RequestMapping(regex = "[a-z]{2}")
+  @RequestMapping("[a-z]{2}")
   public String blabla(@MessageBody String body, Update update){
     return body;
   }
@@ -35,4 +35,15 @@ public class StartController {
   public List<PhotoSize> sentPhoto(List<PhotoSize> photo){
     return photo;
   }
+
+  @RequestMapping
+  public String bdbfjki(){
+    return "EMPTY";
+  }
+
+  @RequestMapping
+  public String up(Update u){
+    return "Update";
+  }
+
 }
