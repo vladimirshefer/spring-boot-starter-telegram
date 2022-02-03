@@ -10,9 +10,8 @@ import java.util.Arrays;
 public class PhotoMethodFilterImpl implements MethodFilter {
   @Override
   public boolean isMatch(Update update, MappingDefinition method) {
-    return update.getMessage().getPhoto() != null &&
-      Arrays
-        .stream(method.getTargetMethod().getGenericParameterTypes())
-        .anyMatch(p -> p.getTypeName().contains("PhotoSize"));
+    return Arrays
+            .stream(method.getTargetMethod().getGenericParameterTypes())
+            .noneMatch(p -> p.getTypeName().contains("PhotoSize")) || update.getMessage().getPhoto() != null;
   }
 }

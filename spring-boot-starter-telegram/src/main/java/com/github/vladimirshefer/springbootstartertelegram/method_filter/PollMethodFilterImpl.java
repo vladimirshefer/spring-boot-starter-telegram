@@ -6,17 +6,13 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 @Component
 public class PollMethodFilterImpl implements MethodFilter {
   @Override
   public boolean isMatch(Update update, MappingDefinition method) {
-    return update.getMessage().getPoll() != null &&
-      Arrays
-        .stream(method.getTargetMethod().getParameterTypes())
-        .collect(Collectors.toList())
-        .contains(Poll.class);
-
+    return !Arrays
+            .asList(method.getTargetMethod().getParameterTypes())
+            .contains(Poll.class) || update.getMessage().getPoll() != null;
   }
 }
