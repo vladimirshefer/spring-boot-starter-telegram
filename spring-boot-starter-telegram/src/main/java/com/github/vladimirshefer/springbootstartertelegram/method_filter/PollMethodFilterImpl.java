@@ -13,6 +13,6 @@ public class PollMethodFilterImpl implements MethodFilter {
   public boolean isMatch(Update update, MappingDefinition method) {
     return !Arrays
             .asList(method.getTargetMethod().getParameterTypes())
-            .contains(Poll.class) || update.getMessage().getPoll() == null;
+            .contains(Poll.class) || update.getMessage().getPoll() != null;
   }
 }
