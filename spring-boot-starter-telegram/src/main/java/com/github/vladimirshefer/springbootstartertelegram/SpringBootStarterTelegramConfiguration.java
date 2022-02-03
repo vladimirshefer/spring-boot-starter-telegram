@@ -34,9 +34,11 @@ public class SpringBootStarterTelegramConfiguration {
       @SneakyThrows
       @Override
       public void onUpdateReceived(Update update) {
-        BotApiMethod<?> answer = updateHandler.handleMessage(update);
-        if (answer != null) {
-          this.sendApiMethod(answer);
+        BotApiMethod<?>[] answers = updateHandler.handleMessage(update);
+        for (BotApiMethod<?> answer : answers) {
+          if (answer != null) {
+            this.sendApiMethod(answer);
+          }
         }
       }
 
