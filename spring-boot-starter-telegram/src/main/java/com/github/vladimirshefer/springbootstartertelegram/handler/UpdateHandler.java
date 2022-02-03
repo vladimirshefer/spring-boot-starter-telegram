@@ -1,7 +1,10 @@
 package com.github.vladimirshefer.springbootstartertelegram.handler;
 
+import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getChatId;
+
 import com.github.vladimirshefer.springbootstartertelegram.scan.MappingDefinitionsManager;
 import com.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -11,11 +14,6 @@ import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.util.List;
-
-import static com.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getChatId;
-import static java.util.Collections.emptyList;
-
 @Component
 @RequiredArgsConstructor
 public class UpdateHandler {
@@ -24,12 +22,8 @@ public class UpdateHandler {
   private final ControllerInvocationArgumentsResolver controllerInvocationArgumentsResolver;
 
   public List<BotApiMethod<?>> handleMessage(Update update) {
-    List<MappingDefinition> mappingDefinitions = mappingDefinitionsManager.findMappingDefinition(
-        update);
-
-    if (mappingDefinitions.isEmpty()) {
-      return emptyList();
-    }
+    List<MappingDefinition> mappingDefinitions = mappingDefinitionsManager
+        .findMappingDefinition(update);
 
     return invokeHandlers(mappingDefinitions, update);
   }
