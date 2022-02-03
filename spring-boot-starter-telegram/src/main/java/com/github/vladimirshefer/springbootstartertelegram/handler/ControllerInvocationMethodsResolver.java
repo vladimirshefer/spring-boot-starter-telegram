@@ -6,27 +6,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class ControllerInvocationMethods {
+public class ControllerInvocationMethodsResolver {
 
   private final List<MethodFilter> methodFilters;
 
   public List<MappingDefinition> getMethods(Update update, List<MappingDefinition> mappingDefinitions) {
-    List<MappingDefinition> listOfMethods = new ArrayList<>();
-
-    for (MappingDefinition method : mappingDefinitions) {
-      for (MethodFilter methodFilter: methodFilters){
-        if(methodFilter.isMatch(update, method)){
-          listOfMethods.add(method);
-          break;
-        }
-      }
-    }
-
-    return listOfMethods;
+    return mappingDefinitions.stream()
+            .filter(mappingDefinition -> mappingDefinition.getTargetMethod().getParameterTypes().length ==
+                    methodFilters.stream().filter(methodFilter -> methodFilter.isMatch(update, mappingDefinition)).count())
+            .collect(Collectors.toList());
   }
 }
