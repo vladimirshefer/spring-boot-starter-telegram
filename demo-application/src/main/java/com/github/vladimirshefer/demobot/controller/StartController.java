@@ -48,19 +48,23 @@ public class StartController {
   public void photos(List<PhotoSize> photos, String caption) {
   }
 
+  /**
+   * Handle any update with any message
+   * @return message;
+   */
   @RequestMapping
-  public List<PhotoSize> sentPhoto(List<PhotoSize> photo){
-    return photo;
-  }
-
-  @RequestMapping
-  public String bdbfjki(){
+  public String catchAllHandlers(){
     return "EMPTY";
   }
 
+  /**
+   * Handle any message. Receive all information about message to parameter update
+   * @param update Receive all information about message
+   * @return UserName, who sent the message
+   */
   @RequestMapping
-  public String up(Update u){
-    return "Update";
+  public String getUpdate(Update update){
+    return update.getMessage().getFrom().getUserName();
   }
 
 }
