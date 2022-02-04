@@ -13,8 +13,9 @@ public class PhotoSizeArgumentResolverImpl implements ArgumentResolver {
   @Override
   public void resolve(
     MappingDefinition mappingDefinition,
-    Update update, Object[] result, int index) {
-    // I think it`s not good-looking, maybe I do with it
+    Update update,
+    Object[] result,
+    int index) {
     Type[] genericParameterTypes = mappingDefinition.getOriginalMethod().getGenericParameterTypes();
     if (genericParameterTypes[index].getTypeName().contains("PhotoSize")) {
       result[index] = getPhotoOrNull(update);
