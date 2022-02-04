@@ -11,8 +11,6 @@ public class TextBodyMethodWithAnnotationMappingValueFilterImpl implements Metho
 
   @Override
   public boolean isMatch(Update update, MappingDefinition method) {
-    return !Arrays
-            .asList(method.getTargetMethod().getParameterTypes())
-            .contains(String.class) || update.getMessage().getText() != null && update.getMessage().getText().matches(method.getRequestMappingValue());
+    return method.getRequestMappingValue().equals("") || update.getMessage().getText() != null && update.getMessage().getText().matches(method.getRequestMappingValue());
   }
 }
