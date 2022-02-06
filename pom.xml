@@ -10,7 +10,7 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <packaging>pom</packaging>
-  <groupId>com.github.vladimirshefer</groupId>
+  <groupId>io.github.vladimirshefer</groupId>
   <artifactId>spring-boot-starter-telegram-parent</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>spring-boot-starter-telegram-parent</name>
