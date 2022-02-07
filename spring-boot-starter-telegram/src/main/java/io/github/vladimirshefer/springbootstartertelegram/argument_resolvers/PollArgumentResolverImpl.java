@@ -10,19 +10,21 @@ import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 @Component
 public class PollArgumentResolverImpl implements ArgumentResolver {
 
-  public void resolve(
+  public Object resolve(
     MappingDefinition mappingDefinition,
     Update update,
-    Object[] result,
     int index
   ) {
-    Class<?>[] parameterTypes = mappingDefinition.getOriginalMethod().getParameterTypes();
-    if (parameterTypes[index].equals(Poll.class)) {
-      Poll poll = getPollOrNull(update);
-      if (poll != null) {
-        result[index] = poll;
-      }
+    Class<?> parameterType = getParameterType(mappingDefinition, index);
+    if (parameterType.equals(Poll.class)) {
+      return getPollOrNull(update);
     }
+    return null;
+  }
+
+  private Class<?> getParameterType(MappingDefinition mappingDefinition, int index) {
+    Class<?>[] parameterTypes = mappingDefinition.getOriginalMethod().getParameterTypes();
+    return parameterTypes[index];
   }
 
 }
