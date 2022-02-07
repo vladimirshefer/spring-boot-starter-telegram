@@ -12,10 +12,9 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 public class MessageTextAnnotationArgumentResolverImpl implements ArgumentResolver {
 
   @Override
-  public void resolve(
+  public Object resolve(
     MappingDefinition mappingDefinition,
     Update update,
-    Object[] result,
     int index
   ) {
     Annotation[] parameterAnnotations = mappingDefinition
@@ -24,10 +23,11 @@ public class MessageTextAnnotationArgumentResolverImpl implements ArgumentResolv
 
     for (Annotation parameterAnnotation : parameterAnnotations) {
       if (parameterAnnotation.annotationType().equals(MessageText.class)) {
-        result[index] = getMessageTextOrNull(update);
+        return getMessageTextOrNull(update);
       }
     }
 
+    return null;
   }
 
 }
