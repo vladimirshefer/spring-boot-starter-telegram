@@ -5,11 +5,23 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 public interface ArgumentResolver {
 
-  void resolve(
+  default void resolve(
     MappingDefinition mappingDefinition,
     Update update,
     Object[] result,
     int index
-  );
+  ) {
+    result[index] = this.resolve(mappingDefinition, update, index);
+  }
+
+  default Object resolve(
+    MappingDefinition mappingDefinition,
+    Update update,
+    int index
+  ){
+    Object[] result = new Object[index + 1];
+    this.resolve(mappingDefinition, update, result, index);
+    return result[index];
+  }
 
 }
