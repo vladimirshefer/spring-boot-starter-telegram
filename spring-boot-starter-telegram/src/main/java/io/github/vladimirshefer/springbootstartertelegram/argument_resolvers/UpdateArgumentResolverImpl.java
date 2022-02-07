@@ -7,16 +7,18 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @Component
 public class UpdateArgumentResolverImpl implements ArgumentResolver {
 
-  public void resolve(
+  public Object resolve(
     MappingDefinition mappingDefinition,
     Update update,
-    Object[] result,
     int index
   ) {
     Class<?>[] parameterTypes = mappingDefinition.getOriginalMethod().getParameterTypes();
+
     if (parameterTypes[index].equals(Update.class)) {
-      result[index] = update;
+      return update;
     }
+
+    return null;
   }
 
 }
