@@ -24,7 +24,10 @@ public class ControllerInvocationArgumentsResolver {
 
     for (int i = 0; i < parametersAmount; i++) {
       for (ArgumentResolver argumentResolver : argumentResolvers) {
-        parametersArray[i] = argumentResolver.resolve(mappingDefinition, update, i);
+        Object value = argumentResolver.resolve(mappingDefinition, update, i);
+        if (value != null) {
+          parametersArray[i] = value;
+        }
       }
     }
 
