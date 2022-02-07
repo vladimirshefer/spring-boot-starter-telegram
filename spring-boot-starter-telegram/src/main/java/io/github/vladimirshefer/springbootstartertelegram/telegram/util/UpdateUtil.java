@@ -1,5 +1,6 @@
 package io.github.vladimirshefer.springbootstartertelegram.telegram.util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,7 +65,11 @@ public class UpdateUtil {
     return getPhotoOptional(update).orElse(null);
   }
 
-  private static Optional<List<PhotoSize>> getPhotoOptional(Update update) {
+  public static List<PhotoSize> getPhotoOrEmpty(Update update) {
+    return getPhotoOptional(update).orElse(new ArrayList<>());
+  }
+
+  public static Optional<List<PhotoSize>> getPhotoOptional(Update update) {
     return getMessageOptional(update).map(Message::getPhoto);
   }
 }
