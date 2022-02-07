@@ -13,7 +13,9 @@ import java.util.Arrays;
 public class TextBodyMethodFilterImpl implements MethodFilter {
 
   /**
-   * Filters out controller method if update mas no text and method has String parameter without @Nullable annotation.
+   * Filters out controller method if update mas no text and method has String parameter without
+   * @Nullable annotation.
+   *
    * @param update the telegram message
    * @param method
    * @return
@@ -36,7 +38,7 @@ public class TextBodyMethodFilterImpl implements MethodFilter {
   }
 
   private String getMessageText(Update update) {
-    return update.getMessage().getText();
+    return update.getMessage() != null ? update.getMessage().getText() : null;
   }
 
   private int getParametersCount(MappingDefinition method) {
