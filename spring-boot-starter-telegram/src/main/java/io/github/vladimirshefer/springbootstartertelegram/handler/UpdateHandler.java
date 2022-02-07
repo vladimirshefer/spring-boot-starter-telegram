@@ -28,7 +28,11 @@ public class UpdateHandler {
   }
 
   private SendMessage sendSimpleMessage(Update update, String result) {
-    return new SendMessage(UpdateUtil.getChatId(update), result);
+    SendMessage sendMessage = new SendMessage(UpdateUtil.getChatId(update), result);
+    if (update.getMessage() != null && update.getMessage().getMessageId() != null) {
+      sendMessage.setReplyToMessageId(update.getMessage().getMessageId());
+    }
+    return sendMessage;
   }
 
   @SneakyThrows
