@@ -43,8 +43,16 @@ public class UpdateHandler {
     return mappingDefinitions.stream()
         .map(mappingDefinition -> invokeController(update, mappingDefinition))
         .filter(Objects::nonNull)
-        .map(methodInvocationResult -> sendSimpleMessage(update, methodInvocationResult.toString()))
+        .map(methodInvocationResult -> resultToApiMethod(update, methodInvocationResult))
         .collect(Collectors.toList());
+  }
+
+  private BotApiMethod<?> resultToApiMethod(Update update, Object methodInvocationResult) {
+    if (methodInvocationResult instanceof BotApiMethod) {
+      return (BotApiMethod<?>) methodInvocationResult;
+    }
+
+    return sendSimpleMessage(update, methodInvocationResult.toString());
   }
 
   @SneakyThrows
