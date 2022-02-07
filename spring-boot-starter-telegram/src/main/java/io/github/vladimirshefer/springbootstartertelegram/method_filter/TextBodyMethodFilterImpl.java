@@ -57,7 +57,7 @@ public class TextBodyMethodFilterImpl implements MethodFilter {
   private boolean hasParameterAnnotation(MappingDefinition method, int parameterIndex,
     String annotationName) {
     return Arrays.stream(getParameterAnnotations(method.getTargetMethod(), parameterIndex))
-      .anyMatch(it -> it.annotationType().getName().equals(annotationName));
+      .anyMatch(it -> it.annotationType().getSimpleName().equals(annotationName));
   }
 
   private Annotation[] getParameterAnnotations(Method targetMethod, int index) {
