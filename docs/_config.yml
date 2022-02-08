@@ -1,1 +1,12 @@
-theme: jekyll-theme-minimal
+remote_theme: pmarsceill/just-the-docs
+
+plugins:
+  - jekyll-remote-theme # add this line to the plugins list if you already have one
+
+#theme: jekyll-theme-minimal
+#theme: just-the-docs
+
+#
+#remote_theme: pages-themes/minimal@v0.2.0
+#collections:
+#  - docs

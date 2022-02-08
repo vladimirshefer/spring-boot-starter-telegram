@@ -1,3 +1,7 @@
+---
+nav_order: 0igation
+---
+
 # Spring Boot Starter Telegram
 
 Extensible framework for creating Telegram bots with ease.
