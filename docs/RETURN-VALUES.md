@@ -1,6 +1,8 @@
+---
 layout: page
 title: "Return values. Replying to update."
 permalink: /return-values
+---
 
 The reaction to the update (message) is defined by method return value.
 
