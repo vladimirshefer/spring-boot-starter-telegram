@@ -1,5 +1,4 @@
 ---
-layout: page
 title: "Return values. Replying to update."
 permalink: /return-values
 ---
