@@ -9,6 +9,10 @@ Powered by [Spring Boot](https://github.com/spring-projects/spring-boot) and
 
 This framework is designed to be easy for use by [Spring Boot / Web](https://spring.io/guides/gs/spring-boot/) users, who are familiar with `@Controller`-s.
 
+## Documentation
+
+[See full documentation here.](https://vladimirshefer.github.io/spring-boot-starter-telegram/)
+
 ## Easy start
 
 ### Dependencies
