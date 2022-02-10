@@ -1,5 +1,6 @@
 ---
 nav_order: 0
+
 ---
 
 # Spring Boot Starter Telegram
@@ -14,29 +15,6 @@ Powered by [Spring Boot](https://github.com/spring-projects/spring-boot) and
 This framework is designed to be easy for use by [Spring Boot / Web](https://spring.io/guides/gs/spring-boot/) users, who are familiar with `@Controller`-s.
 
 ## Easy start
-
-### Dependencies
-
-#### pom.xml
-```xml
-<project>
-  <dependencies>
-    <dependency>
-      <groupId>io.github.vladimirshefer</groupId>
-      <artifactId>spring-boot-starter-telegram</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-  </dependencies>
-  <repositories>
-    <repository>
-      <id>spring-boot-starter-telegram-nexus</id>
-      <name>Spring Boot Starter Telegram Nexus</name>
-      <url>https://nexus.hetzner.shefer.dev/repository/spring-boot-starter-telegram/</url>
-    </repository>
-  </repositories>
-</project>
-```
-
 
 ### Simplest bot code
 
@@ -85,6 +63,27 @@ spring.telegram.bot.name=my_demo_bot
 ```
 [Where do I get the bot token?...](https://core.telegram.org/bots#6-botfather)
 
+### Dependencies
+
+#### pom.xml
+```xml
+<project>
+  <dependencies>
+    <dependency>
+      <groupId>io.github.vladimirshefer</groupId>
+      <artifactId>spring-boot-starter-telegram</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+  <repositories>
+    <repository>
+      <id>spring-boot-starter-telegram-nexus</id>
+      <name>Spring Boot Starter Telegram Nexus</name>
+      <url>https://nexus.hetzner.shefer.dev/repository/spring-boot-starter-telegram/</url>
+    </repository>
+  </repositories>
+</project>
+```
 
 ## See also
 
