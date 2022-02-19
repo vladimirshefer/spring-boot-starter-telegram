@@ -6,10 +6,10 @@
   <parent>
     <groupId>io.github.vladimirshefer</groupId>
     <artifactId>spring-boot-starter-telegram-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
   </parent>
   <artifactId>demo-application</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>${revision}</version>
   <name>demo-application</name>
   <description>demo-application</description>
 
@@ -20,7 +20,7 @@
     <dependency>
       <groupId>io.github.vladimirshefer</groupId>
       <artifactId>spring-boot-starter-telegram</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
+      <version>${revision}</version>
     </dependency>
 
     <dependency>
