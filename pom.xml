@@ -24,6 +24,7 @@
   <properties>
     <revision>0.0.1-SNAPSHOT</revision>
     <java.version>1.8</java.version>
+    <nexus.artifactory.url>https://nexus.hetzner.shefer.dev/repository/spring-boot-starter-telegram/</nexus.artifactory.url>
   </properties>
 
   <dependencyManagement>
@@ -63,7 +64,32 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8.1</version>
+        <executions>
+          <execution>
+            <id>default-deploy</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>deploy</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
+
+  <distributionManagement>
+    <repository>
+      <id>nexus</id>
+      <url>${nexus.artifactory.url}</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexus</id>
+      <url>${nexus.artifactory.url}</url>
+    </snapshotRepository>
+  </distributionManagement>
+
 
 </project>
