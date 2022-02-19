@@ -13,9 +13,6 @@
   <name>demo-application</name>
   <description>demo-application</description>
 
-  <properties>
-    <java.version>1.8</java.version>
-  </properties>
   <dependencies>
     <dependency>
       <groupId>io.github.vladimirshefer</groupId>
