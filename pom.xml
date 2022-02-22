@@ -24,7 +24,9 @@
   <properties>
     <revision>0.0.1-SNAPSHOT</revision>
     <java.version>1.8</java.version>
-    <nexus.artifactory.url>https://nexus.hetzner.shefer.dev/repository/spring-boot-starter-telegram/</nexus.artifactory.url>
+    <nexus.artifactory.url>
+      https://nexus.hetzner.shefer.dev/repository/spring-boot-starter-telegram/
+    </nexus.artifactory.url>
   </properties>
 
   <dependencyManagement>
@@ -85,7 +87,9 @@
           <execution>
             <id>attach-sources</id>
             <phase>package</phase>
-            <goals><goal>jar-no-fork</goal></goals>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
@@ -97,7 +101,9 @@
           <execution>
             <id>attach-javadocs</id>
             <phase>package</phase>
-            <goals><goal>jar</goal></goals>
+            <goals>
+              <goal>jar</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
