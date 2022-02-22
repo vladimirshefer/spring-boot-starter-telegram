@@ -14,11 +14,11 @@ public class TextBodyMethodFilterImpl implements MethodFilter {
 
   /**
    * Filters out controller method if update mas no text and method has String parameter without
-   * @Nullable annotation.
+   * Nullable annotation.
    *
    * @param update the telegram message
-   * @param method
-   * @return
+   * @param method the controller method information
+   * @return false if this update should not be handled by this method. True if you don't mind.
    */
   @Override
   public boolean isMatch(Update update, MappingDefinition method) {
