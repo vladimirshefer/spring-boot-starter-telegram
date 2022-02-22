@@ -11,7 +11,7 @@ public interface MethodFilter {
 
   /**
    * @param update the telegram message
-   * @param method
+   * @param method the controller method information
    * @return false if this update should not be handled by this method. True if you don't mind.
    */
   boolean isMatch(Update update, MappingDefinition method);
