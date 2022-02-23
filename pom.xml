@@ -101,6 +101,9 @@
           <execution>
             <id>attach-javadocs</id>
             <phase>package</phase>
+            <configuration>
+              <additionalJOption>-Xdoclint:none</additionalJOption>
+            </configuration>
             <goals>
               <goal>jar</goal>
             </goals>
