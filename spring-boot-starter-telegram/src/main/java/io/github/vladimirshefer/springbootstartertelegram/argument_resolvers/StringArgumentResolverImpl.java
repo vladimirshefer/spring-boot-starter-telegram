@@ -12,15 +12,15 @@ public class StringArgumentResolverImpl implements ArgumentResolver {
 
   @Override
   public Object resolve(
-    MappingDefinition mappingDefinition,
+    MappingDefinition method,
     Update update,
     int index
   ) {
-    Annotation[] parameterAnnotations = mappingDefinition
+    Annotation[] parameterAnnotations = method
       .getOriginalMethod()
       .getParameterAnnotations()[index];
 
-    Class<?> parameterType = mappingDefinition
+    Class<?> parameterType = method
       .getOriginalMethod()
       .getParameterTypes()[index];
 
