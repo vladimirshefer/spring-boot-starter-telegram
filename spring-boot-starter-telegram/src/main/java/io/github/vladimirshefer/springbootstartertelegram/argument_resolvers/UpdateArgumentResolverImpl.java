@@ -8,11 +8,11 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 public class UpdateArgumentResolverImpl implements ArgumentResolver {
 
   public Object resolve(
-    MappingDefinition mappingDefinition,
+    MappingDefinition method,
     Update update,
     int index
   ) {
-    Class<?>[] parameterTypes = mappingDefinition.getOriginalMethod().getParameterTypes();
+    Class<?>[] parameterTypes = method.getOriginalMethod().getParameterTypes();
 
     if (parameterTypes[index].equals(Update.class)) {
       return update;
