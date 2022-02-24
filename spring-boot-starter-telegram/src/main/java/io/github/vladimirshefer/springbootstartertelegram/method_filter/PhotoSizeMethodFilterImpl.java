@@ -21,7 +21,7 @@ public class PhotoSizeMethodFilterImpl implements MethodFilter {
 
   private boolean hasPhotoSizeListParameter(HandlerMethodDefinition method) {
     return Arrays
-      .stream(method.getTargetMethod().getGenericParameterTypes())
+      .stream(method.getOriginalMethod().getGenericParameterTypes())
       .anyMatch(p -> p.getTypeName().contains("PhotoSize"));
   }
 }
