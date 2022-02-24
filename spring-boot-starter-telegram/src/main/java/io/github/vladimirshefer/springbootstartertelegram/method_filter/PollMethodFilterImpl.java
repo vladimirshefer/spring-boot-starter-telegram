@@ -12,7 +12,7 @@ public class PollMethodFilterImpl implements MethodFilter {
   @Override
   public boolean isMatch(Update update, HandlerMethodDefinition method) {
     return !Arrays
-            .asList(method.getTargetMethod().getParameterTypes())
+            .asList(method.getOriginalMethod().getParameterTypes())
             .contains(Poll.class) || update.getMessage().getPoll() != null;
   }
 }
