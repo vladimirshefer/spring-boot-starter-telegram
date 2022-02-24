@@ -2,11 +2,15 @@ package io.github.vladimirshefer.springbootstartertelegram.handler;
 
 import io.github.vladimirshefer.springbootstartertelegram.annotations.RequestMapping;
 import io.github.vladimirshefer.springbootstartertelegram.telegram.util.ReflectionUtil;
+
 import java.lang.reflect.Method;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.StreamSupport;
+
+import lombok.*;
 
 /**
  * Full information about handler method - the method from bot controller.
@@ -57,6 +61,17 @@ public class HandlerMethodDefinition {
    */
   private Object controller;
 
+  @Getter
+  private List<HandlerArgumentDefinition> arguments =
+    Collections.unmodifiableList(
+      IntStream.range(0, this.getOriginalMethod().getParameters().length)
+        .mapToObj(index -> new HandlerArgumentDefinition(this, index))
+        .collect(Collectors.toList())
+    );
+
+  public HandlerArgumentDefinition getArgument(int argumentIndex) {
+    return this.getArguments().get(argumentIndex);
+  }
 
   public static HandlerMethodDefinition of(
     String controllerName,
