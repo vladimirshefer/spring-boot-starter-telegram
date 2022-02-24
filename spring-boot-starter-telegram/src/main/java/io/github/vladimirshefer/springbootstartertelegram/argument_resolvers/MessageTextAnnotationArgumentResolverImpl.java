@@ -4,7 +4,6 @@ import static io.github.vladimirshefer.springbootstartertelegram.telegram.util.U
 
 import io.github.vladimirshefer.springbootstartertelegram.annotations.MessageText;
 import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerMethodDefinition;
-import java.lang.annotation.Annotation;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -17,14 +16,8 @@ public class MessageTextAnnotationArgumentResolverImpl implements ArgumentResolv
     Update update,
     int index
   ) {
-    Annotation[] parameterAnnotations = method
-      .getOriginalMethod()
-      .getParameterAnnotations()[index];
-
-    for (Annotation parameterAnnotation : parameterAnnotations) {
-      if (parameterAnnotation.annotationType().equals(MessageText.class)) {
-        return getMessageTextOrNull(update);
-      }
+    if (method.getArgument(index).getAnnotations().contains(MessageText.class)){
+      return getMessageTextOrNull(update);
     }
 
     return null;
