@@ -15,8 +15,8 @@ public class ControllerInvocationMethodsResolver {
 
   private final List<MethodFilter> methodFilters;
 
-  public List<MappingDefinition> getMethods(Update update, List<MappingDefinition> mappingDefinitions) {
-    return mappingDefinitions.stream()
+  public List<MappingDefinition> getMethods(Update update, List<MappingDefinition> methods) {
+    return methods.stream()
             .filter(method -> methodFilters.stream().allMatch(filter -> filter.isMatch(update, method)))
             .collect(Collectors.toList());
   }
