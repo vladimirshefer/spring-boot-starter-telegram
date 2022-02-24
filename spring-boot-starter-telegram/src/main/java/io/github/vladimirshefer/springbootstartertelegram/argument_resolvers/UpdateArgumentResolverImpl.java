@@ -12,9 +12,7 @@ public class UpdateArgumentResolverImpl implements ArgumentResolver {
     Update update,
     int index
   ) {
-    Class<?>[] parameterTypes = method.getOriginalMethod().getParameterTypes();
-
-    if (parameterTypes[index].equals(Update.class)) {
+    if (method.getArgument(index).getType().equals(Update.class)) {
       return update;
     }
 
