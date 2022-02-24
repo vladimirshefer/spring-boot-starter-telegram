@@ -28,20 +28,20 @@ public class PhotoSizeArgumentResolverImpl implements ArgumentResolver {
    *
    * If update has no PhotoSize-s then null will be returned.
    *
-   * @param mappingDefinition The full information about handler method.
+   * @param method The full information about handler method.
    * @param update            The incoming update (i.e. telegram message)
    * @param index             The index of the handler method parameter to resolve.
    * @return List of Photo size or
    */
   @Override
   public Object resolve(
-    MappingDefinition mappingDefinition,
+    MappingDefinition method,
     Update update,
     int index
   ) {
-    Type[] genericParameterTypes = mappingDefinition.getOriginalMethod().getGenericParameterTypes();
+    Type[] genericParameterTypes = method.getOriginalMethod().getGenericParameterTypes();
 
-    boolean isList = mappingDefinition.getOriginalMethod().getParameterTypes()[index].equals(
+    boolean isList = method.getOriginalMethod().getParameterTypes()[index].equals(
       List.class);
     if (isList) {
       boolean hasGeneric = hasGeneric(genericParameterTypes[index], PhotoSize.class);
@@ -50,7 +50,7 @@ public class PhotoSizeArgumentResolverImpl implements ArgumentResolver {
       }
     }
 
-    boolean isPhotoSize = mappingDefinition.getOriginalMethod()
+    boolean isPhotoSize = method.getOriginalMethod()
       .getParameterTypes()[index].equals(PhotoSize.class);
 
     if (isPhotoSize) {
