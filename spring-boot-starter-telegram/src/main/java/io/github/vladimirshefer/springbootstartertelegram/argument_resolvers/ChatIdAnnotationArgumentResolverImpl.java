@@ -14,11 +14,11 @@ public class ChatIdAnnotationArgumentResolverImpl implements ArgumentResolver {
 
   @Override
   public Object resolve(
-    MappingDefinition mappingDefinition,
+    MappingDefinition method,
     Update update,
     int index
   ) {
-    Annotation[] parameterAnnotations = mappingDefinition
+    Annotation[] parameterAnnotations = method
       .getOriginalMethod()
       .getParameterAnnotations()[index];
 
