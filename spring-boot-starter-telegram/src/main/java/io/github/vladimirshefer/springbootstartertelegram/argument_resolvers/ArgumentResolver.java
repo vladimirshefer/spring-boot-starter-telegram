@@ -8,14 +8,14 @@ public interface ArgumentResolver {
 
   /**
    * Retrieves required information for the handler parameter from the update.
-   * @param mappingDefinition The full information about handler method.
+   * @param method The full information about handler method.
    * @param update The incoming update (i.e. telegram message)
    * @param index The index of the handler method parameter to resolve.
    * @return the value for argument. null if this handler should not or could not set the value.
    */
   @Nullable
   Object resolve(
-    MappingDefinition mappingDefinition,
+    MappingDefinition method,
     Update update,
     int index
   );
