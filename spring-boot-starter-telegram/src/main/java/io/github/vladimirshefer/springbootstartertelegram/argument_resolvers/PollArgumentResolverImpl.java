@@ -2,7 +2,7 @@ package io.github.vladimirshefer.springbootstartertelegram.argument_resolvers;
 
 import static io.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getPollOrNull;
 
-import io.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
+import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerMethodDefinition;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.polls.Poll;
@@ -11,7 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 public class PollArgumentResolverImpl implements ArgumentResolver {
 
   public Object resolve(
-    MappingDefinition method,
+    HandlerMethodDefinition method,
     Update update,
     int index
   ) {
@@ -22,7 +22,7 @@ public class PollArgumentResolverImpl implements ArgumentResolver {
     return null;
   }
 
-  private Class<?> getParameterType(MappingDefinition method, int index) {
+  private Class<?> getParameterType(HandlerMethodDefinition method, int index) {
     Class<?>[] parameterTypes = method.getOriginalMethod().getParameterTypes();
     return parameterTypes[index];
   }

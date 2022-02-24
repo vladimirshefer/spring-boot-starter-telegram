@@ -1,7 +1,7 @@
 package io.github.vladimirshefer.springbootstartertelegram.argument_resolvers;
 
 import io.github.vladimirshefer.springbootstartertelegram.annotations.ChatId;
-import io.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
+import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerMethodDefinition;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -14,7 +14,7 @@ public class ChatIdAnnotationArgumentResolverImpl implements ArgumentResolver {
 
   @Override
   public Object resolve(
-    MappingDefinition method,
+    HandlerMethodDefinition method,
     Update update,
     int index
   ) {

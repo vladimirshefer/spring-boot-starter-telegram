@@ -2,11 +2,10 @@ package io.github.vladimirshefer.springbootstartertelegram.argument_resolvers;
 
 import static io.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getPhotoOrNull;
 
-import io.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
+import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerMethodDefinition;
 import io.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -35,7 +34,7 @@ public class PhotoSizeArgumentResolverImpl implements ArgumentResolver {
    */
   @Override
   public Object resolve(
-    MappingDefinition method,
+    HandlerMethodDefinition method,
     Update update,
     int index
   ) {

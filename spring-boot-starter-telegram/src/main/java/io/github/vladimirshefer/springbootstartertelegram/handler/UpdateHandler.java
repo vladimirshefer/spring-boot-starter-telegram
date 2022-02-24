@@ -1,7 +1,6 @@
 package io.github.vladimirshefer.springbootstartertelegram.handler;
 
 import io.github.vladimirshefer.springbootstartertelegram.scan.MappingDefinitionsManager;
-import io.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
 import io.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil;
 import java.util.List;
 import java.util.Objects;
@@ -21,7 +20,7 @@ public class UpdateHandler {
   private final ControllerInvocationArgumentsResolver controllerInvocationArgumentsResolver;
 
   public List<BotApiMethod<?>> handleMessage(Update update) {
-    List<MappingDefinition> methods = mappingDefinitionsManager
+    List<HandlerMethodDefinition> methods = mappingDefinitionsManager
         .findMappingDefinition(update);
 
     return invokeHandlers(methods, update);
@@ -37,7 +36,7 @@ public class UpdateHandler {
 
   @SneakyThrows
   private List<BotApiMethod<?>> invokeHandlers(
-      List<MappingDefinition> methods,
+      List<HandlerMethodDefinition> methods,
       Update update
   ) {
     return methods.stream()
@@ -56,13 +55,13 @@ public class UpdateHandler {
   }
 
   @SneakyThrows
-  private Object invokeController(Update update, MappingDefinition mappingDefinition) {
+  private Object invokeController(Update update, HandlerMethodDefinition mappingDefinition) {
     Object[] arguments = getArgumentsForControllerMethodInvocation(mappingDefinition, update);
     return mappingDefinition.getTargetMethod().invoke(mappingDefinition.getController(), arguments);
   }
 
   public Object[] getArgumentsForControllerMethodInvocation(
-      MappingDefinition mappingDefinition,
+      HandlerMethodDefinition mappingDefinition,
       Update update
   ) {
     return controllerInvocationArgumentsResolver.getArguments(mappingDefinition, update);

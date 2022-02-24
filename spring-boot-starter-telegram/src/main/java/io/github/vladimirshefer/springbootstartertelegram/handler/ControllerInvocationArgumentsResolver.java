@@ -1,7 +1,7 @@
 package io.github.vladimirshefer.springbootstartertelegram.handler;
 
 import io.github.vladimirshefer.springbootstartertelegram.argument_resolvers.ArgumentResolver;
-import io.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
+
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -30,7 +30,7 @@ public class ControllerInvocationArgumentsResolver {
    * @return The array of the parameters for calling handler method.
    */
   public Object[] getArguments(
-    MappingDefinition mappingDefinition,
+    HandlerMethodDefinition mappingDefinition,
     Update update
   ) {
     int parameterCount = mappingDefinition.getOriginalMethod().getParameterCount();

@@ -3,7 +3,7 @@ package io.github.vladimirshefer.springbootstartertelegram.argument_resolvers;
 import static io.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getMessageTextOrNull;
 
 import io.github.vladimirshefer.springbootstartertelegram.annotations.MessageText;
-import io.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
+import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerMethodDefinition;
 import java.lang.annotation.Annotation;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -13,7 +13,7 @@ public class MessageTextAnnotationArgumentResolverImpl implements ArgumentResolv
 
   @Override
   public Object resolve(
-    MappingDefinition method,
+    HandlerMethodDefinition method,
     Update update,
     int index
   ) {

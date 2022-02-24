@@ -1,6 +1,6 @@
 package io.github.vladimirshefer.springbootstartertelegram.method_filter;
 
-import io.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
+import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerMethodDefinition;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -21,11 +21,11 @@ public class TextBodyMethodFilterImpl implements MethodFilter {
    * @return false if this update should not be handled by this method. True if you don't mind.
    */
   @Override
-  public boolean isMatch(Update update, MappingDefinition method) {
+  public boolean isMatch(Update update, HandlerMethodDefinition method) {
     return getMessageText(update) != null || !isHasRequiredStringParameter(method);
   }
 
-  private boolean isHasRequiredStringParameter(MappingDefinition method) {
+  private boolean isHasRequiredStringParameter(HandlerMethodDefinition method) {
     boolean hasRequiredStringParameter = false;
 
     for (int i = 0; i < getParametersCount(method); i++) {
@@ -41,11 +41,11 @@ public class TextBodyMethodFilterImpl implements MethodFilter {
     return update.getMessage() != null ? update.getMessage().getText() : null;
   }
 
-  private int getParametersCount(MappingDefinition method) {
+  private int getParametersCount(HandlerMethodDefinition method) {
     return method.getTargetMethod().getParameters().length;
   }
 
-  private boolean isRequiredString(MappingDefinition method, int parameterIndex) {
+  private boolean isRequiredString(HandlerMethodDefinition method, int parameterIndex) {
     boolean isString = isParameterTypeEquals(method.getTargetMethod(), parameterIndex,
       String.class);
     boolean isRequired = !hasParameterAnnotation(method, parameterIndex, "Nullable");
@@ -56,7 +56,7 @@ public class TextBodyMethodFilterImpl implements MethodFilter {
     return Objects.equals(targetMethod.getParameterTypes()[index], b);
   }
 
-  private boolean hasParameterAnnotation(MappingDefinition method, int parameterIndex,
+  private boolean hasParameterAnnotation(HandlerMethodDefinition method, int parameterIndex,
     String annotationName) {
     return Arrays.stream(getParameterAnnotations(method.getTargetMethod(), parameterIndex))
       .anyMatch(it -> it.annotationType().getSimpleName().equals(annotationName));

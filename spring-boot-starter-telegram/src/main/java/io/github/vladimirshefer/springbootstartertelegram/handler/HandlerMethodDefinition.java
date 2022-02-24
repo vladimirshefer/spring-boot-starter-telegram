@@ -1,4 +1,4 @@
-package io.github.vladimirshefer.springbootstartertelegram.telegram.dto;
+package io.github.vladimirshefer.springbootstartertelegram.handler;
 
 import io.github.vladimirshefer.springbootstartertelegram.annotations.RequestMapping;
 import io.github.vladimirshefer.springbootstartertelegram.telegram.util.ReflectionUtil;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class MappingDefinition {
+public class HandlerMethodDefinition {
 
   /**
    * The bean name of controller
@@ -58,7 +58,7 @@ public class MappingDefinition {
   private Object controller;
 
 
-  public static MappingDefinition of(
+  public static HandlerMethodDefinition of(
     String controllerName,
     Class<?> originalClass,
     Object controller,
@@ -67,7 +67,7 @@ public class MappingDefinition {
     RequestMapping mappingAnnotation = originalMethod.getAnnotation(RequestMapping.class);
 
     Class<?> targetClass = controller.getClass();
-    return MappingDefinition.builder()
+    return HandlerMethodDefinition.builder()
       .controller(controller)
       .originalClass(originalClass)
       .originalMethod(originalMethod)

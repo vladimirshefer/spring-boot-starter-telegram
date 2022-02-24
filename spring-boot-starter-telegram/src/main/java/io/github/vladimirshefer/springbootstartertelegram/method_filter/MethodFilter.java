@@ -1,6 +1,6 @@
 package io.github.vladimirshefer.springbootstartertelegram.method_filter;
 
-import io.github.vladimirshefer.springbootstartertelegram.telegram.dto.MappingDefinition;
+import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerMethodDefinition;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 /**
@@ -14,6 +14,6 @@ public interface MethodFilter {
    * @param method the controller method information
    * @return false if this update should not be handled by this method. True if you don't mind.
    */
-  boolean isMatch(Update update, MappingDefinition method);
+  boolean isMatch(Update update, HandlerMethodDefinition method);
 
 }
