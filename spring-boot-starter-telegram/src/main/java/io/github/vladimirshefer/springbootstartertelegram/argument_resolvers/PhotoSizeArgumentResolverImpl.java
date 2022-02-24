@@ -40,8 +40,8 @@ public class PhotoSizeArgumentResolverImpl implements ArgumentResolver {
   ) {
     Type[] genericParameterTypes = method.getOriginalMethod().getGenericParameterTypes();
 
-    boolean isList = method.getOriginalMethod().getParameterTypes()[index].equals(
-      List.class);
+    boolean isList = method.getArgument(index).getType().equals(List.class);
+
     if (isList) {
       boolean hasGeneric = hasGeneric(genericParameterTypes[index], PhotoSize.class);
       if (hasGeneric) {
@@ -49,8 +49,7 @@ public class PhotoSizeArgumentResolverImpl implements ArgumentResolver {
       }
     }
 
-    boolean isPhotoSize = method.getOriginalMethod()
-      .getParameterTypes()[index].equals(PhotoSize.class);
+    boolean isPhotoSize = method.getArgument(index).getType().equals(PhotoSize.class);
 
     if (isPhotoSize) {
       return getBiggestPhotoSize(update);
