@@ -1,13 +1,9 @@
 package io.github.vladimirshefer.springbootstartertelegram.method_filter;
 
+import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerArgumentDefinition;
 import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerMethodDefinition;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.Objects;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
-
-import java.util.Arrays;
 
 @Component
 public class TextBodyMethodFilterImpl implements MethodFilter {
@@ -46,24 +42,19 @@ public class TextBodyMethodFilterImpl implements MethodFilter {
   }
 
   private boolean isRequiredString(HandlerMethodDefinition method, int parameterIndex) {
-    boolean isString = isParameterTypeEquals(method.getOriginalMethod(), parameterIndex,
-      String.class);
-    boolean isRequired = !hasParameterAnnotation(method, parameterIndex, "Nullable");
+    boolean isString = method.getArgument(parameterIndex).getType().equals(String.class);
+    boolean isRequired = !hasParameterAnnotation(method.getArgument(parameterIndex), "Nullable");
     return isString && isRequired;
   }
 
-  private boolean isParameterTypeEquals(Method targetMethod, int index, Class<String> b) {
-    return Objects.equals(targetMethod.getParameterTypes()[index], b);
-  }
-
-  private boolean hasParameterAnnotation(HandlerMethodDefinition method, int parameterIndex,
-    String annotationName) {
-    return Arrays.stream(getParameterAnnotations(method.getTargetMethod(), parameterIndex))
-      .anyMatch(it -> it.annotationType().getSimpleName().equals(annotationName));
-  }
-
-  private Annotation[] getParameterAnnotations(Method targetMethod, int index) {
-    return targetMethod.getParameterAnnotations()[index];
+  private boolean hasParameterAnnotation(
+    HandlerArgumentDefinition argument,
+    String annotationName
+  ) {
+    return argument
+      .getAnnotations()
+      .stream()
+      .anyMatch(it -> it.getSimpleName().equals(annotationName));
   }
 
 }

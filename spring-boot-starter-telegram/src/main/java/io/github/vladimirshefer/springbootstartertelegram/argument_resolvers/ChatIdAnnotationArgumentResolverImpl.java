@@ -18,14 +18,8 @@ public class ChatIdAnnotationArgumentResolverImpl implements ArgumentResolver {
     Update update,
     int index
   ) {
-    Annotation[] parameterAnnotations = method
-      .getOriginalMethod()
-      .getParameterAnnotations()[index];
-
-    for (Annotation parameterAnnotation : parameterAnnotations) {
-      if (parameterAnnotation.annotationType().equals(ChatId.class)) {
-        return getChatId(update);
-      }
+    if (method.getArgument(index).getAnnotations().contains(ChatId.class)) {
+      return getChatId(update);
     }
 
     return null;
