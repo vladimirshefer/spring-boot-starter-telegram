@@ -21,10 +21,10 @@ public class UpdateHandler {
   private final ControllerInvocationArgumentsResolver controllerInvocationArgumentsResolver;
 
   public List<BotApiMethod<?>> handleMessage(Update update) {
-    List<MappingDefinition> mappingDefinitions = mappingDefinitionsManager
+    List<MappingDefinition> methods = mappingDefinitionsManager
         .findMappingDefinition(update);
 
-    return invokeHandlers(mappingDefinitions, update);
+    return invokeHandlers(methods, update);
   }
 
   private SendMessage sendSimpleMessage(Update update, String result) {
@@ -37,10 +37,10 @@ public class UpdateHandler {
 
   @SneakyThrows
   private List<BotApiMethod<?>> invokeHandlers(
-      List<MappingDefinition> mappingDefinitions,
+      List<MappingDefinition> methods,
       Update update
   ) {
-    return mappingDefinitions.stream()
+    return methods.stream()
         .map(mappingDefinition -> invokeController(update, mappingDefinition))
         .filter(Objects::nonNull)
         .map(methodInvocationResult -> resultToApiMethod(update, methodInvocationResult))
