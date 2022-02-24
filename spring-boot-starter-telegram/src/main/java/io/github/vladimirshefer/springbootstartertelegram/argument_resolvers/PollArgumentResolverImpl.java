@@ -15,16 +15,11 @@ public class PollArgumentResolverImpl implements ArgumentResolver {
     Update update,
     int index
   ) {
-    Class<?> parameterType = getParameterType(method, index);
+    Class<?> parameterType = method.getArgument(index).getType();
     if (parameterType.equals(Poll.class)) {
       return getPollOrNull(update);
     }
     return null;
-  }
-
-  private Class<?> getParameterType(HandlerMethodDefinition method, int index) {
-    Class<?>[] parameterTypes = method.getOriginalMethod().getParameterTypes();
-    return parameterTypes[index];
   }
 
 }
