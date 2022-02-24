@@ -46,7 +46,7 @@ public class TextBodyMethodFilterImpl implements MethodFilter {
   }
 
   private boolean isRequiredString(HandlerMethodDefinition method, int parameterIndex) {
-    boolean isString = isParameterTypeEquals(method.getTargetMethod(), parameterIndex,
+    boolean isString = isParameterTypeEquals(method.getOriginalMethod(), parameterIndex,
       String.class);
     boolean isRequired = !hasParameterAnnotation(method, parameterIndex, "Nullable");
     return isString && isRequired;
