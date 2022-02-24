@@ -13,11 +13,11 @@ public class MessageTextAnnotationArgumentResolverImpl implements ArgumentResolv
 
   @Override
   public Object resolve(
-    MappingDefinition mappingDefinition,
+    MappingDefinition method,
     Update update,
     int index
   ) {
-    Annotation[] parameterAnnotations = mappingDefinition
+    Annotation[] parameterAnnotations = method
       .getOriginalMethod()
       .getParameterAnnotations()[index];
 
