@@ -5,6 +5,8 @@ import io.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUt
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import java.lang.annotation.Annotation;
+
 @Component
 public class StringArgumentResolverImpl implements ArgumentResolver {
 
@@ -14,8 +16,15 @@ public class StringArgumentResolverImpl implements ArgumentResolver {
     Update update,
     int index
   ) {
-    Class<?>[] parameterTypes = mappingDefinition.getOriginalMethod().getParameterTypes();
-    if (parameterTypes[index].equals(String.class)) {
+    Annotation[] parameterAnnotations = mappingDefinition
+      .getOriginalMethod()
+      .getParameterAnnotations()[index];
+
+    Class<?> parameterType = mappingDefinition
+      .getOriginalMethod()
+      .getParameterTypes()[index];
+
+    if (parameterType.equals(String.class) && parameterAnnotations.length == 0) {
       return UpdateUtil.getMessageTextOrNull(update);
     }
 
