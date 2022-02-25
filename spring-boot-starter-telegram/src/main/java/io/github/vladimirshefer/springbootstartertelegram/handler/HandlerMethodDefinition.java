@@ -2,72 +2,88 @@ package io.github.vladimirshefer.springbootstartertelegram.handler;
 
 import io.github.vladimirshefer.springbootstartertelegram.annotations.RequestMapping;
 import io.github.vladimirshefer.springbootstartertelegram.telegram.util.ReflectionUtil;
+import lombok.*;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.StreamSupport;
-
-import lombok.*;
 
 /**
  * Full information about handler method - the method from bot controller.
  */
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+@Getter
+@EqualsAndHashCode
+@ToString
 public class HandlerMethodDefinition {
 
   /**
    * The bean name of controller
    */
-  private String controllerName;
+  private final String controllerName;
 
   /**
    * The method from original controller class before wrapping into proxies.
    */
-  private Method originalMethod;
+  private final Method originalMethod;
 
   /**
    * Original bean class before wrapping into proxies.
    */
-  private Class<?> originalClass;
+  private final Class<?> originalClass;
 
   /**
    * Method or proxy which should be executed instead of original method.
    */
-  private Method targetMethod;
+  private final Method targetMethod;
 
   /**
    * The class of the controller proxy wrapper.
    */
-  private Class<?> targetClass;
+  private final Class<?> targetClass;
 
   /**
    * Temp field. Will be removed and only getter will leave.
    */
-  private RequestMapping mappingAnnotation;
+  private final RequestMapping mappingAnnotation;
 
   /**
    * Temp field. Will be removed and only getter will leave.
    */
-  private String requestMappingValue;
+  private final String requestMappingValue;
 
   /**
    * The controller objec or proxy object wrapped aronud controller (if AOP s used.).
    */
-  private Object controller;
+  private final Object controller;
 
-  @Getter
-  private List<HandlerArgumentDefinition> arguments =
-    Collections.unmodifiableList(
+  public HandlerMethodDefinition(
+    String controllerName,
+    Method originalMethod,
+    Class<?> originalClass,
+    Object controller
+  ) {
+    this.controllerName = controllerName;
+    this.originalMethod = originalMethod;
+    this.originalClass = originalClass;
+    this.controller = controller;
+
+    this.targetClass = controller.getClass();
+    this.targetMethod = ReflectionUtil.getSameMethod(targetClass, originalMethod);
+
+    this.mappingAnnotation = originalMethod.getAnnotation(RequestMapping.class);
+    this.requestMappingValue = mappingAnnotation.value();
+
+    this.arguments = Collections.unmodifiableList(
       IntStream.range(0, this.getOriginalMethod().getParameters().length)
         .mapToObj(index -> new HandlerArgumentDefinition(this, index))
         .collect(Collectors.toList())
     );
+  }
+
+  @Getter
+  private final List<HandlerArgumentDefinition> arguments;
 
   public HandlerArgumentDefinition getArgument(int argumentIndex) {
     return this.getArguments().get(argumentIndex);
@@ -79,19 +95,7 @@ public class HandlerMethodDefinition {
     Object controller,
     Method originalMethod
   ) {
-    RequestMapping mappingAnnotation = originalMethod.getAnnotation(RequestMapping.class);
-
-    Class<?> targetClass = controller.getClass();
-    return HandlerMethodDefinition.builder()
-      .controller(controller)
-      .originalClass(originalClass)
-      .originalMethod(originalMethod)
-      .targetClass(targetClass)
-      .targetMethod(ReflectionUtil.getSameMethod(targetClass, originalMethod))
-      .mappingAnnotation(mappingAnnotation)
-      .requestMappingValue(mappingAnnotation.value())
-      .controllerName(controllerName)
-      .build();
+    return new HandlerMethodDefinition(controllerName, originalMethod, originalClass, controller);
   }
 
 }
