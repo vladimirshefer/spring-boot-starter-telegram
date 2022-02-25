@@ -1,6 +1,5 @@
 package io.github.vladimirshefer.springbootstartertelegram.method_filter;
 
-import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerArgumentDefinition;
 import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerMethodDefinition;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -43,18 +42,8 @@ public class TextBodyMethodFilterImpl implements MethodFilter {
 
   private boolean isRequiredString(HandlerMethodDefinition method, int parameterIndex) {
     boolean isString = method.getArgument(parameterIndex).getType().equals(String.class);
-    boolean isRequired = !hasParameterAnnotation(method.getArgument(parameterIndex), "Nullable");
+    boolean isRequired = !method.getArgument(parameterIndex).hasAnnotation("Nullable");
     return isString && isRequired;
-  }
-
-  private boolean hasParameterAnnotation(
-    HandlerArgumentDefinition argument,
-    String annotationName
-  ) {
-    return argument
-      .getAnnotations()
-      .stream()
-      .anyMatch(it -> it.getSimpleName().equals(annotationName));
   }
 
 }
