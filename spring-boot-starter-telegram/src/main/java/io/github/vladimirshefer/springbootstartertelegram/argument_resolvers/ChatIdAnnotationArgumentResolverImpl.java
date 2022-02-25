@@ -5,8 +5,6 @@ import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerMethodD
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.lang.annotation.Annotation;
-
 import static io.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getChatId;
 
 @Component
@@ -18,7 +16,7 @@ public class ChatIdAnnotationArgumentResolverImpl implements ArgumentResolver {
     Update update,
     int index
   ) {
-    if (method.getArgument(index).getAnnotations().contains(ChatId.class)) {
+    if (method.getArgument(index).hasAnnotation(ChatId.class)) {
       return getChatId(update);
     }
 
