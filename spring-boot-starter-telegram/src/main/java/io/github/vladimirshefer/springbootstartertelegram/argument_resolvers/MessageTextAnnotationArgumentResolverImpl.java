@@ -16,7 +16,7 @@ public class MessageTextAnnotationArgumentResolverImpl implements ArgumentResolv
     Update update,
     int index
   ) {
-    if (method.getArgument(index).getAnnotations().contains(MessageText.class)){
+    if (method.getArgument(index).hasAnnotation(MessageText.class)){
       return getMessageTextOrNull(update);
     }
 
