@@ -21,7 +21,7 @@ public class HandlerArgumentDefinition {
   private final int parameterIndex;
 
   @Getter
-  private final List<Class<?>> annotations =
+  private final List<Class<? extends Annotation>> annotations =
     Collections.unmodifiableList(
       Arrays
         .stream(
