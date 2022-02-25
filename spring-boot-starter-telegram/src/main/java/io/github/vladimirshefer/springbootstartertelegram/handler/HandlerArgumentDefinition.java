@@ -40,4 +40,27 @@ public class HandlerArgumentDefinition {
         .collect(Collectors.toList())
     );
   }
+
+  public boolean hasAnnotation(Class<? extends Annotation> annotationClass) {
+    Annotation[] parameterAnnotations = handlerMethodDefinition
+      .getOriginalMethod()
+      .getParameterAnnotations()[parameterIndex];
+
+    return Arrays.stream(parameterAnnotations)
+      .anyMatch(annotation -> annotation.annotationType().equals(annotationClass));
+  }
+
+  public boolean hasAnnotation(String annotationClassName) {
+    Annotation[] parameterAnnotations = handlerMethodDefinition
+      .getOriginalMethod()
+      .getParameterAnnotations()[parameterIndex];
+
+    return Arrays.stream(parameterAnnotations)
+      .anyMatch(annotation ->
+        annotation.annotationType().getSimpleName().equals(annotationClassName)
+        || annotation.annotationType().getCanonicalName().equals(annotationClassName)
+        || annotation.annotationType().getName().equals(annotationClassName)
+      );
+  }
+
 }
