@@ -1,18 +1,24 @@
 package io.github.vladimirshefer.springbootstartertelegram.method_filter;
 
-import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerMethodDefinition;
+import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerArgumentDefinition;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 
-import java.util.Arrays;
+import java.util.Optional;
 
 @Component
-public class PollMethodFilterImpl implements MethodFilter {
+public class PollMethodFilterImpl extends SimpleMethodFilter {
+
   @Override
-  public boolean isMatch(Update update, HandlerMethodDefinition method) {
-    return !Arrays
-            .asList(method.getOriginalMethod().getParameterTypes())
-            .contains(Poll.class) || update.getMessage().getPoll() != null;
+  public boolean updateHasValue(Update update) {
+    return Optional.ofNullable(update).map(Update::getMessage).map(Message::getPoll).isPresent();
   }
+
+  @Override
+  protected boolean valueIsRequired(HandlerArgumentDefinition argument) {
+    return argument.getType().equals(Poll.class);
+  }
+
 }
