@@ -1,15 +1,42 @@
-package io.github.vladimirshefer.springbootstartertelegram.method_filter;
+package io.github.vladimirshefer.springbootstartertelegram.argument.resolver;
 
 import io.github.vladimirshefer.springbootstartertelegram.annotations.ForwardedFrom;
 import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerArgumentDefinition;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
 
 import java.util.Optional;
 
 @Component
-public class ForwardedFromAnnotationMethodFilterImpl extends SimpleMethodFilter {
+public class ForwardedFromAnnotationFilteringArgumentResolverImpl extends FilteringArgumentResolver {
+
+  public Object resolve(
+    HandlerArgumentDefinition argument, Update update
+  ) {
+
+    if (!argument.hasAnnotation(ForwardedFrom.class)) {
+      return null;
+    }
+
+    Class<?> parameterType = argument.getType();
+
+    User forwardedFrom = Optional.ofNullable(update)
+      .map(Update::getMessage)
+      .map(Message::getForwardFrom)
+      .orElse(null);
+
+    if (forwardedFrom == null) {
+      return null;
+    }
+
+    if (parameterType.equals(User.class)) {
+      return forwardedFrom;
+    }
+
+    return null;
+  }
 
   @Override
   public boolean valueIsRequired(HandlerArgumentDefinition argument) {
