@@ -34,6 +34,8 @@ class HandlerArgumentDefinitionTest {
 
     assertEquals(List.class, argument.getType());
     assertEquals(singletonList(Nullable.class), argument.getAnnotations());
+    assertEquals("java.util.List<java.util.Map<java.lang.String, java.lang.Integer>>",
+      argument.getGenericType().getTypeName());
   }
 
 }

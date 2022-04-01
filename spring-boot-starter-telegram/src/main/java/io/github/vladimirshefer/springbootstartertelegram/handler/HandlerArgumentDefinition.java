@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -23,12 +24,16 @@ public class HandlerArgumentDefinition {
   @Getter
   private final Class<?> type;
 
+  @Getter
+  private final Type genericType;
+
   public HandlerArgumentDefinition(HandlerMethodDefinition handlerMethodDefinition, int parameterIndex) {
     this.handlerMethodDefinition = handlerMethodDefinition;
     this.parameterIndex = parameterIndex;
     this.type = handlerMethodDefinition
       .getOriginalMethod()
       .getParameterTypes()[parameterIndex];
+    this.genericType = handlerMethodDefinition.getOriginalMethod().getGenericParameterTypes()[parameterIndex];
     this.annotations = Collections.unmodifiableList(
       Arrays
         .stream(
