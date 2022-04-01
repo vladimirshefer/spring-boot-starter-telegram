@@ -4,6 +4,9 @@ import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerMethodD
 import javax.annotation.Nullable;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+/**
+ * Class to set arguments when calling update handler method in bot controller.
+ */
 public interface ArgumentResolver {
 
   /**
