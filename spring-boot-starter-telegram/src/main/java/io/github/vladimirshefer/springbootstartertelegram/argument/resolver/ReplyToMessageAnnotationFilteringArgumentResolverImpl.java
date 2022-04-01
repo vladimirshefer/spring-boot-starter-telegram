@@ -1,7 +1,7 @@
-package io.github.vladimirshefer.springbootstartertelegram.argument_resolvers;
+package io.github.vladimirshefer.springbootstartertelegram.argument.resolver;
 
 import io.github.vladimirshefer.springbootstartertelegram.annotations.ReplyToMessage;
-import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerMethodDefinition;
+import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerArgumentDefinition;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -10,19 +10,18 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import java.util.Optional;
 
 @Component
-public class ReplyToMessageAnnotationArgumentResolverImpl implements ArgumentResolver {
+public class ReplyToMessageAnnotationFilteringArgumentResolverImpl extends FilteringArgumentResolver {
 
   @Override
   public Object resolve(
-    HandlerMethodDefinition method,
-    Update update,
-    int index
+    HandlerArgumentDefinition argument, Update update
   ) {
-    if (!method.getArgument(index).hasAnnotation(ReplyToMessage.class)) {
+
+    if (!argument.hasAnnotation(ReplyToMessage.class)) {
       return null;
     }
 
-    Class<?> parameterType = method.getArgument(index).getType();
+    Class<?> parameterType = argument.getType();
 
     Message replyToMessage = Optional.ofNullable(update)
       .map(Update::getMessage)
@@ -42,6 +41,19 @@ public class ReplyToMessageAnnotationArgumentResolverImpl implements ArgumentRes
     }
 
     return null;
+  }
+
+
+  @Override
+  public boolean updateHasValue(Update update) {
+    return Optional.ofNullable(update)
+      .map(Update::getMessage)
+      .map(Message::getReplyToMessage)
+      .isPresent();
+  }
+
+  public boolean valueIsRequired(HandlerArgumentDefinition argument) {
+    return argument.hasAnnotation(ReplyToMessage.class) && !argument.hasAnnotation("Nullable");
   }
 
 }
