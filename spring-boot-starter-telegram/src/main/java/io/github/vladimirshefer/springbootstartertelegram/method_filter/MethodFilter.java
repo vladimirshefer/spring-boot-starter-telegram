@@ -4,7 +4,7 @@ import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerMethodD
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 /**
- * Gives ability to filter out controller methods if they are not appropriate for specific telegram
+ * Gives ability to filter out controller methods if they are not appropriate for specific incoming
  * message.
  */
 public interface MethodFilter {
