@@ -11,10 +11,10 @@ public class RequestMappingAnnotationPatternMatchesMethodFilterImpl implements M
   public boolean isMatch(Update update, HandlerMethodDefinition method) {
     boolean noMapping = method.getRequestMappingValue().equals("");
 
-    return noMapping || textMatchess(update, method);
+    return noMapping || textMatches(update, method);
   }
 
-  private boolean textMatchess(Update update, HandlerMethodDefinition method) {
+  private boolean textMatches(Update update, HandlerMethodDefinition method) {
     String text = update.getMessage().getText();
     return text != null && text.matches(method.getRequestMappingValue());
   }
