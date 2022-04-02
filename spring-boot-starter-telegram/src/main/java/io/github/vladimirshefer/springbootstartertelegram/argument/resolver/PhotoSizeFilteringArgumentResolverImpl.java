@@ -1,10 +1,10 @@
-package io.github.vladimirshefer.springbootstartertelegram.argument_resolvers;
+package io.github.vladimirshefer.springbootstartertelegram.argument.resolver;
 
-import static io.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getPhotoOrNull;
-
-import io.github.vladimirshefer.springbootstartertelegram.argument.resolver.FilteringArgumentResolver;
 import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerArgumentDefinition;
 import io.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil;
+import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.PhotoSize;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -12,12 +12,10 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.PhotoSize;
-import org.telegram.telegrambots.meta.api.objects.Update;
+import static io.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getPhotoOrNull;
 
 @Component
-public class PhotoSizeArgumentResolverImpl extends FilteringArgumentResolver {
+public class PhotoSizeFilteringArgumentResolverImpl extends FilteringArgumentResolver {
 
   /**
    * If parameter is
