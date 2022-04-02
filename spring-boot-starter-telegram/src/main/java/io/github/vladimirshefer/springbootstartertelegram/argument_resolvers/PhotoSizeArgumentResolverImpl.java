@@ -2,19 +2,22 @@ package io.github.vladimirshefer.springbootstartertelegram.argument_resolvers;
 
 import static io.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getPhotoOrNull;
 
-import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerMethodDefinition;
+import io.github.vladimirshefer.springbootstartertelegram.argument.resolver.FilteringArgumentResolver;
+import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerArgumentDefinition;
 import io.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
-public class PhotoSizeArgumentResolverImpl implements ArgumentResolver {
+public class PhotoSizeArgumentResolverImpl extends FilteringArgumentResolver {
 
   /**
    * If parameter is
@@ -27,29 +30,25 @@ public class PhotoSizeArgumentResolverImpl implements ArgumentResolver {
    *
    * If update has no PhotoSize-s then null will be returned.
    *
-   * @param method The full information about handler method.
+   * @param argument
    * @param update            The incoming update (i.e. telegram message)
-   * @param index             The index of the handler method parameter to resolve.
    * @return List of Photo size or
    */
   @Override
   public Object resolve(
-    HandlerMethodDefinition method,
-    Update update,
-    int index
+    HandlerArgumentDefinition argument,
+    Update update
   ) {
-    Type[] genericParameterTypes = method.getOriginalMethod().getGenericParameterTypes();
-
-    boolean isList = method.getArgument(index).getType().equals(List.class);
+    boolean isList = argument.getType().equals(List.class);
 
     if (isList) {
-      boolean hasGeneric = hasGeneric(genericParameterTypes[index], PhotoSize.class);
+      boolean hasGeneric = hasGeneric(argument.getGenericType(), PhotoSize.class);
       if (hasGeneric) {
         return getPhotoOrNull(update);
       }
     }
 
-    boolean isPhotoSize = method.getArgument(index).getType().equals(PhotoSize.class);
+    boolean isPhotoSize = argument.getType().equals(PhotoSize.class);
 
     if (isPhotoSize) {
       return getBiggestPhotoSize(update);
@@ -65,14 +64,24 @@ public class PhotoSizeArgumentResolverImpl implements ArgumentResolver {
       .orElse(null);
   }
 
-  private boolean hasGeneric(Type parameterType, Class<?> genericType) {
+  private boolean hasGeneric(Type parameterType, Type typeArgument) {
     if (parameterType instanceof ParameterizedType) {
       ParameterizedType parameterizedType = (ParameterizedType) parameterType;
       return Arrays.stream(parameterizedType.getActualTypeArguments())
         .map(Type::getTypeName)
-        .anyMatch(it -> it.equals(genericType.getTypeName()));
+        .anyMatch(it -> it.equals(typeArgument.getTypeName()));
     }
     return false;
+  }
+
+  @Override
+  protected boolean updateHasValue(Update update) {
+    return UpdateUtil.getPhotoOrNull(update) != null;
+  }
+
+  @Override
+  protected boolean valueIsRequired(HandlerArgumentDefinition argument) {
+    return argument.getGenericType().getTypeName().contains(PhotoSize.class.getName());
   }
 
 }
