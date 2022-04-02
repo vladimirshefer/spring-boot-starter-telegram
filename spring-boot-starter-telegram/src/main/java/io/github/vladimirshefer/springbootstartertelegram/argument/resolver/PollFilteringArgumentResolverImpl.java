@@ -1,4 +1,4 @@
-package io.github.vladimirshefer.springbootstartertelegram.method_filter;
+package io.github.vladimirshefer.springbootstartertelegram.argument.resolver;
 
 import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerArgumentDefinition;
 import org.springframework.stereotype.Component;
@@ -8,8 +8,21 @@ import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 
 import java.util.Optional;
 
+import static io.github.vladimirshefer.springbootstartertelegram.telegram.util.UpdateUtil.getPollOrNull;
+
 @Component
-public class PollMethodFilterImpl extends SimpleMethodFilter {
+public class PollFilteringArgumentResolverImpl extends FilteringArgumentResolver {
+
+  public Object resolve(
+    HandlerArgumentDefinition argument,
+    Update update
+  ) {
+    Class<?> parameterType = argument.getType();
+    if (parameterType.equals(Poll.class)) {
+      return getPollOrNull(update);
+    }
+    return null;
+  }
 
   @Override
   public boolean updateHasValue(Update update) {
