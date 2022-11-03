@@ -58,8 +58,8 @@ public class BotApplication {
 
 Minimal configuration to start:
 ```properties
-spring.telegram.bot.token=123456789:AAfcxQY2FME0UskU1jQE
-spring.telegram.bot.name=my_demo_bot
+spring.chatbots.telegram.bot.token=123456789:AAfcxQY2FME0UskU1jQE
+spring.chatbots.telegram.bot.name=my_demo_bot
 ```
 [Where do I get the bot token?...](https://core.telegram.org/bots#6-botfather)
 
