@@ -27,6 +27,8 @@ public class HandlerArgumentDefinition {
   @Getter
   private final Type genericType;
 
+//  private final MethodParameter springMethodPatameter;
+
   public HandlerArgumentDefinition(HandlerMethodDefinition handlerMethodDefinition, int parameterIndex) {
     this.handlerMethodDefinition = handlerMethodDefinition;
     this.parameterIndex = parameterIndex;

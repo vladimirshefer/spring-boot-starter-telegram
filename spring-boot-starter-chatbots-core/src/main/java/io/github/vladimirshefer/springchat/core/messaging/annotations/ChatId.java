@@ -1,4 +1,4 @@
-package io.github.vladimirshefer.springbootstartertelegram.annotations;
+package io.github.vladimirshefer.springchat.core.messaging.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

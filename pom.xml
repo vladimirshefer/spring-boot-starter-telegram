@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -10,14 +10,15 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <packaging>pom</packaging>
-  <groupId>io.github.vladimirshefer</groupId>
-  <artifactId>spring-boot-starter-telegram-parent</artifactId>
+  <groupId>io.github.vladimirshefer.spring-chatbot</groupId>
+  <artifactId>spring-chatbot-parent</artifactId>
   <version>${revision}</version>
   <name>spring-boot-starter-telegram-parent</name>
   <description>spring-boot-starter-telegram-parent</description>
 
   <modules>
-    <module>spring-boot-starter-telegram</module>
+    <module>spring-boot-starter-chatbots-core</module>
+    <module>spring-boot-starter-chatbots</module>
     <module>demo-application</module>
   </modules>
 
@@ -126,3 +127,35 @@
 
 
 </project>
+
+
+  <!--<scm>-->
+  <!--<tag>HEAD</tag>-->
+  <!--<connection>scm:git:git://github.com/vladimirshefer/spring-boot-starter-telegram.git</connection>-->
+  <!--<developerConnection>scm:git:git@github.com:vladimirshefer/spring-boot-starter-telegram.git</developerConnection>-->
+  <!--<url>https://github.com/vladimirshefer/spring-boot-starter-telegram</url>-->
+  <!--</scm>-->
+
+
+  <!--  <repositories>-->
+  <!--    <repository>-->
+  <!--      <id>nexus</id>-->
+  <!--      <name>Nexus</name>-->
+  <!--      <url>${nexus.artifactory.url}</url>-->
+  <!--    </repository>-->
+  <!--  </repositories>-->
+
+  <!--  <profiles>-->
+  <!--    <profile>-->
+  <!--      <id>ci</id>-->
+  <!--      <activation>-->
+  <!--        <property>-->
+  <!--          <name>env.buildNumber</name>-->
+  <!--        </property>-->
+  <!--      </activation>-->
+  <!--      <properties>-->
+  <!--        &lt;!&ndash; Override only if necessary &ndash;&gt;-->
+  <!--        <buildNumber>${env.buildNumber}</buildNumber>-->
+  <!--      </properties>-->
+  <!--    </profile>-->
+  <!--  </profiles>-->

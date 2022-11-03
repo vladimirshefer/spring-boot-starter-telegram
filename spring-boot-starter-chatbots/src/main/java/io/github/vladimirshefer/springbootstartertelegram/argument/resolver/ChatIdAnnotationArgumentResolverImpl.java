@@ -1,6 +1,6 @@
 package io.github.vladimirshefer.springbootstartertelegram.argument.resolver;
 
-import io.github.vladimirshefer.springbootstartertelegram.annotations.ChatId;
+import io.github.vladimirshefer.springchat.core.messaging.annotations.ChatId;
 import io.github.vladimirshefer.springbootstartertelegram.handler.HandlerArgumentDefinition;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
