@@ -1,8 +1,6 @@
 package io.github.vladimirshefer.spring.chatbots.argument_resolvers;
 
-import io.github.vladimirshefer.spring.chatbots.handler.HandlerMethodDefinition;
-
-import javax.annotation.Nullable;
+import io.github.vladimirshefer.spring.chatbots.handler.HandlerArgumentDefinition;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 /**
@@ -12,16 +10,10 @@ public interface ArgumentResolver {
 
   /**
    * Retrieves required information for the handler parameter from the update.
-   * @param method The full information about handler method.
+   * @param argument information about handler argument.
    * @param update The incoming update (i.e. telegram message)
-   * @param index The index of the handler method parameter to resolve.
    * @return the value for argument. null if this handler should not or could not set the value.
    */
-  @Nullable
-  Object resolve(
-    HandlerMethodDefinition method,
-    Update update,
-    int index
-  );
+  Object resolve(HandlerArgumentDefinition argument, Update update);
 
 }

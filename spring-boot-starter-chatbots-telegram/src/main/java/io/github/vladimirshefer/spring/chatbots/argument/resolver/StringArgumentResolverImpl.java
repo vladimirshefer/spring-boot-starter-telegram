@@ -19,7 +19,7 @@ import java.util.Optional;
 public class StringArgumentResolverImpl extends FilteringArgumentResolver {
 
   @Override
-  protected Object resolve(HandlerArgumentDefinition argument, Update update) {
+  public Object resolve(HandlerArgumentDefinition argument, Update update) {
     if (argument.getType().equals(String.class) && argument.getAnnotations().isEmpty()) {
       return UpdateUtil.getMessageTextOrNull(update);
     }

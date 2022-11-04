@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <parent>
-    <artifactId>spring-boot-starter-telegram-parent</artifactId>
-    <groupId>io.github.vladimirshefer</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>spring-boot-starter-chatbots-core</artifactId>
+  <parent>
+    <groupId>io.github.vladimirshefer</groupId>
+    <artifactId>spring-chatbots-parent</artifactId>
+    <version>${revision}</version>
+  </parent>
 
-  <properties>
-    <maven.compiler.source>8</maven.compiler.source>
-    <maven.compiler.target>8</maven.compiler.target>
-  </properties>
+  <artifactId>spring-boot-starter-chatbots-telegram</artifactId>
+  <version>${revision}</version>
+  <name>spring-boot-starter-chatbots-telegram</name>
+  <description>spring-boot-starter-chatbots-telegram</description>
 
   <dependencies>
+    <dependency>
+      <groupId>io.github.vladimirshefer</groupId>
+      <artifactId>spring-chatbots-core</artifactId>
+      <version>${revision}</version>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
@@ -36,6 +41,10 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.telegram</groupId>
+      <artifactId>telegrambots</artifactId>
     </dependency>
   </dependencies>
 

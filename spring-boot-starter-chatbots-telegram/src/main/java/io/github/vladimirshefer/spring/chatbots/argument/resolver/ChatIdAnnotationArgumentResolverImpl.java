@@ -1,7 +1,7 @@
 package io.github.vladimirshefer.spring.chatbots.argument.resolver;
 
 import io.github.vladimirshefer.spring.chatbots.telegram.util.UpdateUtil;
-import io.github.vladimirshefer.spring.chatbots.annotations.MessageText;
+import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.ChatId;
 import io.github.vladimirshefer.spring.chatbots.handler.HandlerArgumentDefinition;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -10,12 +10,12 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import java.util.Optional;
 
 @Component
-public class MessageTextAnnotationArgumentResolverImpl extends FilteringArgumentResolver {
+public class ChatIdAnnotationArgumentResolverImpl extends FilteringArgumentResolver {
 
   @Override
-  protected Object resolve(HandlerArgumentDefinition argument, Update update) {
-    if (argument.hasAnnotation(MessageText.class)) {
-      return UpdateUtil.getMessageTextOrNull(update);
+  public Object resolve(HandlerArgumentDefinition argument, Update update) {
+    if (argument.hasAnnotation(ChatId.class)) {
+      return UpdateUtil.getChatId(update);
     }
 
     return null;
@@ -25,12 +25,13 @@ public class MessageTextAnnotationArgumentResolverImpl extends FilteringArgument
   protected boolean updateHasValue(Update update) {
     return Optional.ofNullable(update)
       .map(Update::getMessage)
-      .map(Message::getText)
+      .map(Message::getChatId)
       .isPresent();
   }
 
   @Override
   protected boolean valueIsRequired(HandlerArgumentDefinition argument) {
-    return argument.hasAnnotation(MessageText.class) && !argument.hasAnnotation("Nullable");
+    return argument.hasAnnotation(ChatId.class) || !argument.hasAnnotation("Nullable");
   }
+
 }

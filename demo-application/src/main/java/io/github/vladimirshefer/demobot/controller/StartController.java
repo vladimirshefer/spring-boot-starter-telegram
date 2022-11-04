@@ -1,11 +1,12 @@
 package io.github.vladimirshefer.demobot.controller;
 
-import io.github.vladimirshefer.springbootstartertelegram.annotations.RequestMapping;
-import io.github.vladimirshefer.springbootstartertelegram.annotations.TelegramController;
-import java.util.List;
+import io.github.vladimirshefer.spring.chatbots.annotations.RequestMapping;
+import io.github.vladimirshefer.spring.chatbots.annotations.TelegramController;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.polls.Poll;
+
+import java.util.List;
 
 @TelegramController
 public class StartController {

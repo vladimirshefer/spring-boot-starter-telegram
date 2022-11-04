@@ -3,28 +3,32 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.6.2</version>
+    <version>2.7.5</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
+
   <packaging>pom</packaging>
-  <groupId>io.github.vladimirshefer.spring-chatbot</groupId>
-  <artifactId>spring-chatbot-parent</artifactId>
+  <groupId>io.github.vladimirshefer</groupId>
+  <artifactId>spring-chatbots-parent</artifactId>
   <version>${revision}</version>
-  <name>spring-boot-starter-telegram-parent</name>
-  <description>spring-boot-starter-telegram-parent</description>
+  <name>Spring Chatbots</name>
+  <description>The parent for all spring-chatbots libraries</description>
 
   <modules>
-    <module>spring-boot-starter-chatbots-core</module>
-    <module>spring-boot-starter-chatbots</module>
+    <module>spring-chatbots-core</module>
+    <module>spring-boot-starter-chatbots-telegram</module>
     <module>demo-application</module>
   </modules>
 
   <properties>
     <revision>0.0.1-SNAPSHOT</revision>
     <java.version>1.8</java.version>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
     <nexus.artifactory.url>
       https://nexus.hetzner.shefer.dev/repository/spring-boot-starter-telegram/
     </nexus.artifactory.url>
@@ -35,7 +39,7 @@
       <dependency>
         <groupId>org.telegram</groupId>
         <artifactId>telegrambots</artifactId>
-        <version>5.6.0</version>
+        <version>6.1.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
