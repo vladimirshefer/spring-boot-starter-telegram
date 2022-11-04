@@ -3,6 +3,8 @@ nav_order: 0
 
 ---
 
+![Logo](logo.svg)
+
 # Spring Boot Starter Telegram
 
 Extensible framework for creating Telegram bots with ease.
