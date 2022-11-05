@@ -1,4 +1,4 @@
-package io.github.vladimirshefer.spring.chatbots.telegram.util;
+package io.github.vladimirshefer.spring.chatbots.core.util;
 
 import static java.util.Arrays.asList;
 

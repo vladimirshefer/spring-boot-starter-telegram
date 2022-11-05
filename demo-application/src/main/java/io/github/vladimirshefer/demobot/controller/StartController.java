@@ -1,6 +1,6 @@
 package io.github.vladimirshefer.demobot.controller;
 
-import io.github.vladimirshefer.spring.chatbots.annotations.RequestMapping;
+import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.RequestMapping;
 import io.github.vladimirshefer.spring.chatbots.annotations.TelegramController;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;

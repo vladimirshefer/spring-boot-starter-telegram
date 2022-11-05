@@ -1,7 +1,7 @@
 package io.github.vladimirshefer.spring.chatbots.argument.resolver;
 
 import io.github.vladimirshefer.spring.chatbots.annotations.ForwardedFrom;
-import io.github.vladimirshefer.spring.chatbots.handler.HandlerArgumentDefinition;
+import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerArgumentDefinition;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;

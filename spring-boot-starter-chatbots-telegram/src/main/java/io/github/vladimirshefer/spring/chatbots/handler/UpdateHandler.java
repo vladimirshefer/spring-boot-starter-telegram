@@ -1,5 +1,6 @@
 package io.github.vladimirshefer.spring.chatbots.handler;
 
+import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerMethodDefinition;
 import io.github.vladimirshefer.spring.chatbots.scan.MappingDefinitionsManager;
 import io.github.vladimirshefer.spring.chatbots.telegram.util.UpdateUtil;
 import java.util.List;

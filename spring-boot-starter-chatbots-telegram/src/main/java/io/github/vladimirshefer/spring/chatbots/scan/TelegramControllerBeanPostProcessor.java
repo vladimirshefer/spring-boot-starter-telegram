@@ -1,7 +1,7 @@
 package io.github.vladimirshefer.spring.chatbots.scan;
 
 import io.github.vladimirshefer.spring.chatbots.annotations.TelegramController;
-import io.github.vladimirshefer.spring.chatbots.telegram.util.ReflectionUtil;
+import io.github.vladimirshefer.spring.chatbots.core.util.ReflectionUtil;
 
 import java.util.HashMap;
 import java.util.Map;

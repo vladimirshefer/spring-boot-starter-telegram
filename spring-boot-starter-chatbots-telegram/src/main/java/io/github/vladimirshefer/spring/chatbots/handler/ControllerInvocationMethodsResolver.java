@@ -1,5 +1,6 @@
 package io.github.vladimirshefer.spring.chatbots.handler;
 
+import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerMethodDefinition;
 import io.github.vladimirshefer.spring.chatbots.method_filter.MethodFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

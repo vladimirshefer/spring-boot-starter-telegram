@@ -1,8 +1,8 @@
 package io.github.vladimirshefer.spring.chatbots.scan;
 
 import io.github.vladimirshefer.spring.chatbots.handler.ControllerInvocationMethodsResolver;
-import io.github.vladimirshefer.spring.chatbots.annotations.RequestMapping;
-import io.github.vladimirshefer.spring.chatbots.handler.HandlerMethodDefinition;
+import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.RequestMapping;
+import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerMethodDefinition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;

@@ -3,6 +3,8 @@ package io.github.vladimirshefer.spring.chatbots.telegram.util;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.lang.reflect.Method;
+
+import io.github.vladimirshefer.spring.chatbots.core.util.ReflectionUtil;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 

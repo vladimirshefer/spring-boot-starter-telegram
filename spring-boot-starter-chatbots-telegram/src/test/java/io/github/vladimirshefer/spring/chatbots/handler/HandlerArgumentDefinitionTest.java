@@ -1,6 +1,8 @@
 package io.github.vladimirshefer.spring.chatbots.handler;
 
-import io.github.vladimirshefer.spring.chatbots.annotations.RequestMapping;
+import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerArgumentDefinition;
+import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerMethodDefinition;
+import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.RequestMapping;
 import org.junit.jupiter.api.Test;
 
 import javax.annotation.Nullable;

@@ -1,8 +1,10 @@
 package io.github.vladimirshefer.spring.chatbots.handler;
 
-import io.github.vladimirshefer.spring.chatbots.argument_resolvers.ArgumentResolver;
+import io.github.vladimirshefer.spring.chatbots.argument_resolvers.TelegramArgumentResolver;
 
 import java.util.List;
+
+import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerMethodDefinition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -18,7 +20,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @RequiredArgsConstructor
 public class ControllerInvocationArgumentsResolver {
 
-  private final List<ArgumentResolver> argumentResolvers;
+  private final List<TelegramArgumentResolver> argumentResolvers;
 
   /**
    * This method collects the values for arguments of controller method.
@@ -39,7 +41,7 @@ public class ControllerInvocationArgumentsResolver {
     int parametersAmount = mappingDefinition.getOriginalMethod().getParameters().length;
 
     for (int i = 0; i < parametersAmount; i++) {
-      for (ArgumentResolver argumentResolver : argumentResolvers) {
+      for (TelegramArgumentResolver argumentResolver : argumentResolvers) {
         Object value = argumentResolver.resolve(mappingDefinition.getArgument(i), update);
         if (value != null) {
           parametersArray[i] = value;

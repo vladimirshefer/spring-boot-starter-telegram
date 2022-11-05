@@ -1,8 +1,10 @@
-package io.github.vladimirshefer.spring.chatbots.handler;
+package io.github.vladimirshefer.spring.chatbots.core.handler;
 
-import io.github.vladimirshefer.spring.chatbots.annotations.RequestMapping;
-import io.github.vladimirshefer.spring.chatbots.telegram.util.ReflectionUtil;
-import lombok.*;
+import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.RequestMapping;
+import io.github.vladimirshefer.spring.chatbots.core.util.ReflectionUtil;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.lang.reflect.Method;
 import java.util.Collections;

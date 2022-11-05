@@ -1,7 +1,7 @@
 package io.github.vladimirshefer.spring.chatbots.method_filter;
 
-import io.github.vladimirshefer.spring.chatbots.handler.HandlerMethodDefinition;
-import io.github.vladimirshefer.spring.chatbots.handler.HandlerArgumentDefinition;
+import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerMethodDefinition;
+import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerArgumentDefinition;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 public abstract class SimpleMethodFilter implements MethodFilter {

@@ -1,4 +1,4 @@
-package io.github.vladimirshefer.spring.chatbots.annotations;
+package io.github.vladimirshefer.spring.chatbots.core.messaging.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

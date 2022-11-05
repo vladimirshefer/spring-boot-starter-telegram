@@ -1,4 +1,4 @@
-package io.github.vladimirshefer.spring.chatbots.handler;
+package io.github.vladimirshefer.spring.chatbots.core.handler;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
