@@ -12,12 +12,13 @@ import javax.validation.constraints.NotNull;
 public class TelegramEventFacade implements EventFacade {
 
   private final Update update;
+
   TelegramMessageFacade telegramMessageFacade = new TelegramMessageFacade(update.getMessage());
 
   @NotNull
   @Override
-  public Object getSource() {
-    return null;
+  public Update getSource() {
+    return update;
   }
 
   @Nullable

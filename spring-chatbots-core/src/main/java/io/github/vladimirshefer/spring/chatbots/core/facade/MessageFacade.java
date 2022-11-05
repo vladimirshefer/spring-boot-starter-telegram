@@ -28,4 +28,7 @@ public interface MessageFacade extends EntityFacade {
   @Nullable
   String getId();
 
+  @Nullable
+  UserFacade getAuthor();
+
 }
