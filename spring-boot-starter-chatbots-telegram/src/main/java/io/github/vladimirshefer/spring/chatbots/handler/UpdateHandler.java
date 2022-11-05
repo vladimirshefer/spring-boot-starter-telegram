@@ -1,7 +1,10 @@
 package io.github.vladimirshefer.spring.chatbots.handler;
 
+import io.github.vladimirshefer.spring.chatbots.core.facade.EventFacade;
 import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerMethodDefinition;
+import io.github.vladimirshefer.spring.chatbots.core.service.ControllerInvocationArgumentsResolver;
 import io.github.vladimirshefer.spring.chatbots.scan.MappingDefinitionsManager;
+import io.github.vladimirshefer.spring.chatbots.telegram.facade.TelegramEventFacade;
 import io.github.vladimirshefer.spring.chatbots.telegram.util.UpdateUtil;
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +25,7 @@ public class UpdateHandler {
 
   public List<BotApiMethod<?>> handleMessage(Update update) {
     List<HandlerMethodDefinition> methods = mappingDefinitionsManager
-        .findMappingDefinition(update);
+        .findMappingDefinition(new TelegramEventFacade(update));
 
     return invokeHandlers(methods, update);
   }
@@ -41,7 +44,7 @@ public class UpdateHandler {
       Update update
   ) {
     return methods.stream()
-        .map(mappingDefinition -> invokeController(update, mappingDefinition))
+        .map(mappingDefinition -> invokeController(mappingDefinition, new TelegramEventFacade(update)))
         .filter(Objects::nonNull)
         .map(methodInvocationResult -> resultToApiMethod(update, methodInvocationResult))
         .collect(Collectors.toList());
@@ -56,17 +59,16 @@ public class UpdateHandler {
   }
 
   @SneakyThrows
-  private Object invokeController(Update update, HandlerMethodDefinition mappingDefinition) {
-    Object[] arguments = getArgumentsForControllerMethodInvocation(mappingDefinition, update);
+  private Object invokeController(HandlerMethodDefinition mappingDefinition, EventFacade event) {
+    Object[] arguments = getArgumentsForControllerMethodInvocation(mappingDefinition, event);
     return mappingDefinition.getTargetMethod().invoke(mappingDefinition.getController(), arguments);
   }
 
   public Object[] getArgumentsForControllerMethodInvocation(
-      HandlerMethodDefinition mappingDefinition,
-      Update update
+    HandlerMethodDefinition mappingDefinition,
+    EventFacade event
   ) {
-    return controllerInvocationArgumentsResolver.getArguments(mappingDefinition, update);
+    return controllerInvocationArgumentsResolver.getArguments(mappingDefinition, event);
   }
-
 
 }

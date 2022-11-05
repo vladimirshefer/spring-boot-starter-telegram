@@ -1,13 +1,13 @@
-package io.github.vladimirshefer.spring.chatbots.handler;
+package io.github.vladimirshefer.spring.chatbots.core.service;
 
-import io.github.vladimirshefer.spring.chatbots.argument_resolvers.TelegramArgumentResolver;
-
-import java.util.List;
-
+import io.github.vladimirshefer.spring.chatbots.core.facade.EventFacade;
+import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerArgumentDefinition;
 import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerMethodDefinition;
+import io.github.vladimirshefer.spring.chatbots.core.messaging.ArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.Update;
+
+import java.util.List;
 
 /**
  * This class is used to extract arguments required by handler (controller method).
@@ -20,7 +20,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @RequiredArgsConstructor
 public class ControllerInvocationArgumentsResolver {
 
-  private final List<TelegramArgumentResolver> argumentResolvers;
+  private final List<ArgumentResolver> argumentResolvers;
 
   /**
    * This method collects the values for arguments of controller method.
@@ -28,12 +28,12 @@ public class ControllerInvocationArgumentsResolver {
    * which was not filtered out by MethodFilter implementations.
    *
    * @param mappingDefinition the information about handler method
-   * @param update the incoming telegram update (message)
+   * @param event
    * @return The array of the parameters for calling handler method.
    */
   public Object[] getArguments(
     HandlerMethodDefinition mappingDefinition,
-    Update update
+    EventFacade event
   ) {
     int parameterCount = mappingDefinition.getOriginalMethod().getParameterCount();
     Object[] parametersArray = new Object[parameterCount];
@@ -41,10 +41,13 @@ public class ControllerInvocationArgumentsResolver {
     int parametersAmount = mappingDefinition.getOriginalMethod().getParameters().length;
 
     for (int i = 0; i < parametersAmount; i++) {
-      for (TelegramArgumentResolver argumentResolver : argumentResolvers) {
-        Object value = argumentResolver.resolve(mappingDefinition.getArgument(i), update);
-        if (value != null) {
-          parametersArray[i] = value;
+      HandlerArgumentDefinition argument = mappingDefinition.getArgument(i);
+      for (ArgumentResolver argumentResolver : argumentResolvers) {
+        if (argumentResolver.shouldResolve(argument)) {
+          Object value = argumentResolver.resolve(argument, event);
+          if (value != null) {
+            parametersArray[i] = value;
+          }
         }
       }
     }
