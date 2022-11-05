@@ -2,12 +2,13 @@ package io.github.vladimirshefer.spring.chatbots.argument_resolvers;
 
 import io.github.vladimirshefer.spring.chatbots.core.facade.EventFacade;
 import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerArgumentDefinition;
+import io.github.vladimirshefer.spring.chatbots.core.messaging.ArgumentResolver;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 /**
  * Class to set arguments when calling update handler method in bot controller.
  */
-public interface TelegramArgumentResolver {
+public interface TelegramArgumentResolver extends ArgumentResolver {
 
   default boolean shouldResolve(HandlerArgumentDefinition argumentDefinition) {
     return true;
