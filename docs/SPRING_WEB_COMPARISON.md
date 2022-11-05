@@ -3,7 +3,7 @@ title: "Bots configuration."
 permalink: /bots-configuration
 ---
 
-## Difference with Spring Web
+## Differences with Spring Web
 
 #### Event (message) triggers multiple handlers.
 Unlike Spring Web, in Chatbots events (messages) 

@@ -3,9 +3,9 @@ nav_order: 0
 
 ---
 
-# Spring Boot Starter Telegram
+# Spring Boot Starter Chatbots (Telegram, Discord)
 
-Extensible framework for creating Telegram bots with ease.
+Extensible framework for creating chatbots with ease.
 
 This framework is a [Spring Boot Starter](https://www.geeksforgeeks.org/spring-boot-starters/).
 

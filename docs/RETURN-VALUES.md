@@ -25,7 +25,7 @@ You could return void to reply nothing.
 ```java
   @RequestMapping
   public void noReply(){
-    return "This is simple text to reply.";
+    return;
   }
 ```
 
