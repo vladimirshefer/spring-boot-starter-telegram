@@ -2,25 +2,30 @@ package io.github.vladimirshefer.spring.chatbots.telegram.facade;
 
 import io.github.vladimirshefer.spring.chatbots.core.facade.MessageFacade;
 import lombok.RequiredArgsConstructor;
-import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.Message;
 
-import javax.annotation.Nullable;
+import javax.validation.constraints.NotNull;
 
 @RequiredArgsConstructor
 public class TelegramMessageFacade implements MessageFacade {
 
-  private final Update update;
+  private final Message message;
 
-  @Nullable
+  @NotNull
   @Override
   public String getMessageText() {
-    return update.getMessage().getText();
+    return message.getText();
   }
 
-  @Nullable
+  @NotNull
   @Override
   public String getId() {
-    return null;
+    return message.getMessageId().toString();
   }
 
+  @NotNull
+  @Override
+  public Object getSource() {
+    return message;
+  }
 }

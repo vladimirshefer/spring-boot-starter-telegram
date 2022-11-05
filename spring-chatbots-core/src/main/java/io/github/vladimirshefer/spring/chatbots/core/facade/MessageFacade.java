@@ -2,7 +2,7 @@ package io.github.vladimirshefer.spring.chatbots.core.facade;
 
 import javax.annotation.Nullable;
 
-public interface MessageFacade {
+public interface MessageFacade extends EntityFacade {
 
   /**
    * Most chat messages contain simple text.
