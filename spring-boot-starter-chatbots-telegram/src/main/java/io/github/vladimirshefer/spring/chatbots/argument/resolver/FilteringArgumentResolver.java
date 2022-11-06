@@ -1,13 +1,25 @@
 package io.github.vladimirshefer.spring.chatbots.argument.resolver;
 
-import io.github.vladimirshefer.spring.chatbots.argument_resolvers.TelegramArgumentResolver;
+import io.github.vladimirshefer.spring.chatbots.core.facade.EventFacade;
 import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerArgumentDefinition;
-import io.github.vladimirshefer.spring.chatbots.method_filter.SimpleMethodFilter;
-import org.telegram.telegrambots.meta.api.objects.Update;
+import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerMethodDefinition;
+import io.github.vladimirshefer.spring.chatbots.core.messaging.ArgumentResolver;
+import io.github.vladimirshefer.spring.chatbots.method_filter.MethodFilter;
 
-public abstract class FilteringArgumentResolver extends SimpleMethodFilter implements TelegramArgumentResolver {
+public abstract class FilteringArgumentResolver implements ArgumentResolver, MethodFilter {
 
-  @Override
-  public abstract Object resolve(HandlerArgumentDefinition argument, Update update);
+  public final boolean isMatch(EventFacade event, HandlerMethodDefinition method) {
+    boolean noArgumentsToResolve = method.getArguments().stream().noneMatch(this::shouldResolve);
+    if (noArgumentsToResolve) return true;
+
+    boolean updateHasValue = hasValue(event);
+    return method.getArguments()
+      .stream()
+      .noneMatch(argument -> valueIsRequired(argument) && !updateHasValue);
+  }
+
+  protected abstract boolean hasValue(EventFacade event);
+
+  protected abstract boolean valueIsRequired(HandlerArgumentDefinition argument);
 
 }

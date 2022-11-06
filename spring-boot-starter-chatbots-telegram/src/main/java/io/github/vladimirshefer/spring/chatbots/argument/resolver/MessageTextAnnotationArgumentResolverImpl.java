@@ -1,11 +1,10 @@
 package io.github.vladimirshefer.spring.chatbots.argument.resolver;
 
-import io.github.vladimirshefer.spring.chatbots.telegram.util.UpdateUtil;
-import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.MessageText;
+import io.github.vladimirshefer.spring.chatbots.core.facade.EventFacade;
+import io.github.vladimirshefer.spring.chatbots.core.facade.MessageFacade;
 import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerArgumentDefinition;
+import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.MessageText;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.Optional;
 
@@ -13,19 +12,22 @@ import java.util.Optional;
 public class MessageTextAnnotationArgumentResolverImpl extends FilteringArgumentResolver {
 
   @Override
-  public Object resolve(HandlerArgumentDefinition argument, Update update) {
-    if (argument.hasAnnotation(MessageText.class)) {
-      return UpdateUtil.getMessageTextOrNull(update);
-    }
-
-    return null;
+  public boolean shouldResolve(HandlerArgumentDefinition argument) {
+    return argument.hasAnnotation(MessageText.class);
   }
 
   @Override
-  protected boolean updateHasValue(Update update) {
-    return Optional.ofNullable(update)
-      .map(Update::getMessage)
-      .map(Message::getText)
+  public Object resolve(HandlerArgumentDefinition argument, EventFacade event) {
+    return Optional.ofNullable(event.getMessage())
+      .map(MessageFacade::getMessageText)
+      .orElse(null);
+  }
+
+  @Override
+  protected boolean hasValue(EventFacade event) {
+    return Optional.ofNullable(event)
+      .map(EventFacade::getMessage)
+      .map(MessageFacade::getMessageText)
       .isPresent();
   }
 
@@ -33,4 +35,5 @@ public class MessageTextAnnotationArgumentResolverImpl extends FilteringArgument
   protected boolean valueIsRequired(HandlerArgumentDefinition argument) {
     return argument.hasAnnotation(MessageText.class) && !argument.hasAnnotation("Nullable");
   }
+
 }

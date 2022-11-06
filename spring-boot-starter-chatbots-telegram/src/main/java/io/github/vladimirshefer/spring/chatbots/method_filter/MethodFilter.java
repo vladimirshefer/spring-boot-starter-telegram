@@ -12,23 +12,10 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 public interface MethodFilter {
 
   /**
-   * @param update the telegram message
-   * @param method the controller method information
-   * @return false if this event should not be handled by this method. True if you don't mind.
-   */
-  boolean isMatch(Update update, HandlerMethodDefinition method);
-
-  /**
    * @param event the messenger event (i.e. message sent)
    * @param method the controller method information
    * @return false if this event should not be handled by this method. True if you don't mind.
    */
-  default boolean isMatch(EventFacade event, HandlerMethodDefinition method) {
-    if (!(event instanceof TelegramEventFacade)) {
-      return false;
-    }
-
-    return isMatch((Update) event.getSource(), method);
-  }
+  boolean isMatch(EventFacade event, HandlerMethodDefinition method);
 
 }
