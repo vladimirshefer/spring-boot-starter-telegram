@@ -1,7 +1,7 @@
 package io.github.vladimirshefer.spring.chatbots.core.facade;
 
-import com.sun.istack.internal.NotNull;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +47,7 @@ public interface MessageFacade extends EntityFacade {
    *
    * @return another messages, which are referenced by this message. or empty list.
    */
-  @NotNull
+  @Nonnull
   default List<MessageFacade> getReferencedMessages() {
     return Collections.emptyList();
   }
