@@ -18,10 +18,10 @@
       <artifactId>spring-boot-starter-chatbots-telegram</artifactId>
       <version>${revision}</version>
     </dependency>
-
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
+      <groupId>io.github.vladimirshefer</groupId>
+      <artifactId>spring-boot-starter-chatbots-discord</artifactId>
+      <version>${revision}</version>
     </dependency>
 
     <dependency>
