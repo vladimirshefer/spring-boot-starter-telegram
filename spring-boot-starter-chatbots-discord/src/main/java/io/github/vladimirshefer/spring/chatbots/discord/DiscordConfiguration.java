@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DiscordConfiguration {
 
-  @Value("${spring.chatbots.discord.token}")
+  @Value("${spring.chatbots.discord.bot.token}")
   String token;
 
   @Bean
