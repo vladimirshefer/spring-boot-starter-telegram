@@ -1,15 +1,9 @@
 package io.github.vladimirshefer.spring.chatbots.telegram.util;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 
-import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class UpdateUtil {
 
@@ -39,37 +33,4 @@ public class UpdateUtil {
         .map(Update::getMessage);
   }
 
-  private static Optional<String> getMessageTextOptional(Update update) {
-    return getMessageOptional(update)
-        .map(Message::getText);
-  }
-
-  @Nullable
-  public static String getMessageTextOrNull(Update update) {
-    return getMessageTextOptional(update)
-        .orElse(null);
-  }
-
-  private static Optional<Poll> getPollOptional(Update update){
-    return getMessageOptional(update)
-      .map(Message::getPoll);
-  }
-
-  @Nullable
-  public static Poll getPollOrNull(Update update){
-    return getPollOptional(update)
-      .orElse(null);
-  }
-
-  public static List<PhotoSize> getPhotoOrNull(Update update) {
-    return getPhotoOptional(update).orElse(null);
-  }
-
-  public static List<PhotoSize> getPhotoOrEmpty(Update update) {
-    return getPhotoOptional(update).orElse(new ArrayList<>());
-  }
-
-  public static Optional<List<PhotoSize>> getPhotoOptional(Update update) {
-    return getMessageOptional(update).map(Message::getPhoto);
-  }
 }
