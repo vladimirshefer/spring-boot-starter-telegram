@@ -50,10 +50,9 @@ public class HandlerMethodDefinition {
    */
   private final RequestMapping mappingAnnotation;
 
-  /**
-   * Temp field. Will be removed and only getter will leave.
-   */
-  private final String requestMappingValue;
+  public String getRequestMappingValue() {
+    return mappingAnnotation.value();
+  }
 
   /**
    * The controller objec or proxy object wrapped aronud controller (if AOP s used.).
@@ -75,7 +74,6 @@ public class HandlerMethodDefinition {
     this.targetMethod = ReflectionUtil.getSameMethod(targetClass, originalMethod);
 
     this.mappingAnnotation = originalMethod.getAnnotation(RequestMapping.class);
-    this.requestMappingValue = mappingAnnotation.value();
 
     this.arguments = Collections.unmodifiableList(
       IntStream.range(0, this.getOriginalMethod().getParameters().length)
