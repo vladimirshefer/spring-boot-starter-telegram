@@ -8,6 +8,8 @@ import org.telegram.telegrambots.meta.api.objects.User;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
+import java.util.Arrays;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class TelegramMessageFacade implements MessageFacade {
@@ -17,7 +19,9 @@ public class TelegramMessageFacade implements MessageFacade {
   @NotNull
   @Override
   public String getMessageText() {
-    return message.getText();
+    if (message.getText() != null) return message.getText();
+    if (message.getCaption() != null) return message.getCaption();
+    return null;
   }
 
   @NotNull
@@ -33,6 +37,24 @@ public class TelegramMessageFacade implements MessageFacade {
     if (author == null) return null;
 
     return new TelegramUserFacade(author);
+  }
+
+  @Nullable
+  @Override
+  public String getChatId() {
+    return message.getChatId().toString();
+  }
+
+  @Nullable
+  @Override
+  public List<MessageFacade> getReferencedMessages() {
+    Message replyToMessage = message.getReplyToMessage();
+
+    if (replyToMessage != null) {
+      return Arrays.asList(new TelegramMessageFacade(replyToMessage));
+    }
+
+    return null;
   }
 
   @NotNull
