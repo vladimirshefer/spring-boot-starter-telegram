@@ -1,7 +1,8 @@
-package io.github.vladimirshefer.spring.chatbots.core.resolvers;
+package io.github.vladimirshefer.spring.chatbots.core.resolvers.impl;
 
 import io.github.vladimirshefer.spring.chatbots.core.facade.EventFacade;
 import io.github.vladimirshefer.spring.chatbots.core.engine.HandlerMethodDefinition;
+import io.github.vladimirshefer.spring.chatbots.core.resolvers.MethodFilter;
 import org.springframework.stereotype.Component;
 
 @Component
