@@ -1,4 +1,4 @@
-package io.github.vladimirshefer.spring.chatbots.core.handler;
+package io.github.vladimirshefer.spring.chatbots.core.engine;
 
 import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.RequestMapping;
 import io.github.vladimirshefer.spring.chatbots.core.util.ReflectionUtil;

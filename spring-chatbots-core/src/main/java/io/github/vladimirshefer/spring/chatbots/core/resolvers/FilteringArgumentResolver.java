@@ -1,10 +1,8 @@
-package io.github.vladimirshefer.spring.chatbots.argument.resolver;
+package io.github.vladimirshefer.spring.chatbots.core.resolvers;
 
 import io.github.vladimirshefer.spring.chatbots.core.facade.EventFacade;
-import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerArgumentDefinition;
-import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerMethodDefinition;
-import io.github.vladimirshefer.spring.chatbots.core.messaging.ArgumentResolver;
-import io.github.vladimirshefer.spring.chatbots.method_filter.MethodFilter;
+import io.github.vladimirshefer.spring.chatbots.core.engine.HandlerArgumentDefinition;
+import io.github.vladimirshefer.spring.chatbots.core.engine.HandlerMethodDefinition;
 
 public abstract class FilteringArgumentResolver implements ArgumentResolver, MethodFilter {
 

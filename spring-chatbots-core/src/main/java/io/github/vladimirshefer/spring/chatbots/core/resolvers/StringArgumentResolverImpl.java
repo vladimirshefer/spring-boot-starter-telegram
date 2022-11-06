@@ -1,8 +1,8 @@
-package io.github.vladimirshefer.spring.chatbots.argument.resolver;
+package io.github.vladimirshefer.spring.chatbots.core.resolvers;
 
 import io.github.vladimirshefer.spring.chatbots.core.facade.EventFacade;
 import io.github.vladimirshefer.spring.chatbots.core.facade.MessageFacade;
-import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerArgumentDefinition;
+import io.github.vladimirshefer.spring.chatbots.core.engine.HandlerArgumentDefinition;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -39,10 +39,10 @@ public class StringArgumentResolverImpl extends FilteringArgumentResolver {
 
   @Override
   public Object resolve(HandlerArgumentDefinition argument, EventFacade event) {
-      return Optional.of(event)
-        .map(EventFacade::getMessage)
-        .map(MessageFacade::getMessageText)
-        .orElse(null);
+    return Optional.of(event)
+      .map(EventFacade::getMessage)
+      .map(MessageFacade::getMessageText)
+      .orElse(null);
   }
 
 }

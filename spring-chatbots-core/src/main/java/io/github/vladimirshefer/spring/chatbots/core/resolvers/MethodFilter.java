@@ -1,9 +1,7 @@
-package io.github.vladimirshefer.spring.chatbots.method_filter;
+package io.github.vladimirshefer.spring.chatbots.core.resolvers;
 
 import io.github.vladimirshefer.spring.chatbots.core.facade.EventFacade;
-import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerMethodDefinition;
-import io.github.vladimirshefer.spring.chatbots.telegram.facade.TelegramEventFacade;
-import org.telegram.telegrambots.meta.api.objects.Update;
+import io.github.vladimirshefer.spring.chatbots.core.engine.HandlerMethodDefinition;
 
 /**
  * Gives ability to filter out controller methods if they are not appropriate for specific incoming

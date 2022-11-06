@@ -1,7 +1,5 @@
-package io.github.vladimirshefer.spring.chatbots.handler;
+package io.github.vladimirshefer.spring.chatbots.core.engine;
 
-import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerArgumentDefinition;
-import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerMethodDefinition;
 import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.RequestMapping;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.Collections.singletonList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HandlerArgumentDefinitionTest {
 

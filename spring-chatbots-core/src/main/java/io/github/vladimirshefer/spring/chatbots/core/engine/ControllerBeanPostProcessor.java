@@ -1,18 +1,18 @@
-package io.github.vladimirshefer.spring.chatbots.scan;
+package io.github.vladimirshefer.spring.chatbots.core.engine;
 
-import io.github.vladimirshefer.spring.chatbots.annotations.TelegramController;
+import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.BotController;
 import io.github.vladimirshefer.spring.chatbots.core.util.ReflectionUtil;
-
-import java.util.HashMap;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RequiredArgsConstructor
 @Component
-public class TelegramControllerBeanPostProcessor implements BeanPostProcessor {
+public class ControllerBeanPostProcessor implements BeanPostProcessor {
 
   private final MappingDefinitionsManager mappingDefinitionsManager;
 
@@ -21,7 +21,7 @@ public class TelegramControllerBeanPostProcessor implements BeanPostProcessor {
   @Override
   public Object postProcessBeforeInitialization(Object bean, String beanName)
       throws BeansException {
-    if (ReflectionUtil.hasAnnotation(bean.getClass(), TelegramController.class)) {
+    if (ReflectionUtil.hasAnnotation(bean.getClass(), BotController.class)) {
       telegramControllersClasses.put(beanName, bean.getClass());
       System.out.println(beanName);
     }

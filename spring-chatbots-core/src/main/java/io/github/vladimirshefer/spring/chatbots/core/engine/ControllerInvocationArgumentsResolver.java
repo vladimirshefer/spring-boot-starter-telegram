@@ -1,9 +1,7 @@
-package io.github.vladimirshefer.spring.chatbots.core.service;
+package io.github.vladimirshefer.spring.chatbots.core.engine;
 
 import io.github.vladimirshefer.spring.chatbots.core.facade.EventFacade;
-import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerArgumentDefinition;
-import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerMethodDefinition;
-import io.github.vladimirshefer.spring.chatbots.core.messaging.ArgumentResolver;
+import io.github.vladimirshefer.spring.chatbots.core.resolvers.ArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
