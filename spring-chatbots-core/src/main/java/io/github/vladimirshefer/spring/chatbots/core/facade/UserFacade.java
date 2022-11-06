@@ -8,7 +8,7 @@ public interface UserFacade extends EntityFacade {
   String getId();
 
   @Nullable
-  String username();
+  String getUserName();
 
   @Nullable
   String getDisplayName();

@@ -1,9 +1,9 @@
 package io.github.vladimirshefer.spring.chatbots.scan;
 
-import io.github.vladimirshefer.spring.chatbots.handler.ControllerInvocationMethodsResolver;
-import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.RequestMapping;
+import io.github.vladimirshefer.spring.chatbots.core.facade.EventFacade;
 import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerMethodDefinition;
-import io.github.vladimirshefer.spring.chatbots.telegram.facade.TelegramEventFacade;
+import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.RequestMapping;
+import io.github.vladimirshefer.spring.chatbots.handler.ControllerInvocationMethodsResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +30,7 @@ public class MappingDefinitionsManager {
     methods.addAll(controllerMethods);
   }
 
-  public List<HandlerMethodDefinition> findMappingDefinition(TelegramEventFacade event) {
+  public List<HandlerMethodDefinition> findMappingDefinition(EventFacade event) {
     return controllerInvocationMethods.getMethods(event, methods);
   }
 

@@ -1,13 +1,13 @@
-package io.github.vladimirshefer.spring.chatbots.telegram.facade;
+package io.github.vladimirshefer.spring.chatbots.discord.facade;
 
+import discord4j.core.object.entity.User;
 import io.github.vladimirshefer.spring.chatbots.core.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
-import org.telegram.telegrambots.meta.api.objects.User;
 
 import javax.annotation.Nullable;
 
 @RequiredArgsConstructor
-public class TelegramUserFacade implements UserFacade {
+public class DiscordUserFacade implements UserFacade {
 
   private final User user;
 
@@ -20,18 +20,19 @@ public class TelegramUserFacade implements UserFacade {
   @Nullable
   @Override
   public String getId() {
-    return user.getId().toString();
+    return user.getId().asString();
   }
 
   @Nullable
   @Override
   public String getUserName() {
-    return user.getUserName();
+    return user.getUsername();
   }
 
   @Nullable
   @Override
   public String getDisplayName() {
-    return user.getFirstName() + " " + user.getLastName();
+    return user.getUsername();
   }
+
 }
