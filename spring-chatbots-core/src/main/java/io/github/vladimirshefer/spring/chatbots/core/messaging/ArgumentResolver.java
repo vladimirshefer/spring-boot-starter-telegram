@@ -8,7 +8,7 @@ import io.github.vladimirshefer.spring.chatbots.core.handler.HandlerArgumentDefi
  */
 public interface ArgumentResolver {
 
-  default boolean shouldResolve(HandlerArgumentDefinition argumentDefinition) {
+  default boolean shouldResolve(HandlerArgumentDefinition argument) {
     return true;
   }
 
