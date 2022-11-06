@@ -1,11 +1,6 @@
-package io.github.vladimirshefer.spring.chatbots;
+package io.github.vladimirshefer.spring.chatbots.telegram;
 
-import io.github.vladimirshefer.spring.chatbots.core.facade.EventFacade;
-import io.github.vladimirshefer.spring.chatbots.handler.EventListener;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
+import io.github.vladimirshefer.spring.chatbots.core.engine.EventListener;
 import io.github.vladimirshefer.spring.chatbots.telegram.facade.TelegramEventFacade;
 import io.github.vladimirshefer.spring.chatbots.telegram.util.UpdateUtil;
 import lombok.SneakyThrows;
@@ -20,9 +15,12 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Configuration
 @ComponentScan
-public class SpringBootStarterTelegramConfiguration {
+public class TelegramConfiguration {
 
   @SneakyThrows
   @Bean
