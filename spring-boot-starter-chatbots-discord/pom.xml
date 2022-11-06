@@ -4,7 +4,7 @@
   <parent>
     <artifactId>spring-chatbots-parent</artifactId>
     <groupId>io.github.vladimirshefer</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>spring-boot-starter-chatbots-discord</artifactId>
