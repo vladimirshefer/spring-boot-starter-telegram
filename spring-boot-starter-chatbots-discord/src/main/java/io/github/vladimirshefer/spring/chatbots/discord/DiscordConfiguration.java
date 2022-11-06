@@ -12,13 +12,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DiscordConfiguration {
 
-  @Value("${spring.chatbots.discord.bot.token}")
+  @Value("${spring.chatbots.discord.bot.token:}")
   String token;
 
   @Bean
   public GatewayDiscordClient discordBot(
     EventListener eventListener
   ) {
+    if (token.isEmpty()) {
+      return null;
+    }
     final DiscordClient client = DiscordClient.create(token);
     final GatewayDiscordClient gateway = client.login().block();
 
