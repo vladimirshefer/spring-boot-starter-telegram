@@ -3,7 +3,7 @@ title: "Parsing updates."
 permalink: /parsing-updates
 ---
 
-## Parsing incoming updates (messages)
+## Parsing incoming events (messages)
 
 ### Message text
 The message text will be passed to the parameter of type `String`.
