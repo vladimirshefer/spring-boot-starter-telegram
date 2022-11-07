@@ -8,6 +8,15 @@ import io.github.vladimirshefer.spring.chatbots.core.engine.HandlerArgumentDefin
  */
 public interface ArgumentResolver {
 
+  /**
+   * Check if this resolver is applicable for argument.
+   * Return false, if this resolver should never be applied for this argument.
+   * Return true, if resolver is compatible with argument.
+   * If you are not sure, then return true.
+   * This method should be idempotent. This means that for the same argument the result should be the same.
+   * @param argument the argument of event handler.
+   * @return false if not applicable. true otherwise.
+   */
   default boolean shouldResolve(HandlerArgumentDefinition argument) {
     return true;
   }
