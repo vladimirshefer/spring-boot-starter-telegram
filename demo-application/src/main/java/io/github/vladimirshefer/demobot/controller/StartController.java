@@ -1,14 +1,15 @@
 package io.github.vladimirshefer.demobot.controller;
 
+import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.BotController;
+import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.Messenger;
 import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.RequestMapping;
-import io.github.vladimirshefer.spring.chatbots.telegram.annotations.TelegramController;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 
 import java.util.List;
 
-@TelegramController
+@BotController
 public class StartController {
 
   /**
@@ -34,6 +35,7 @@ public class StartController {
    * @param poll the poll, if present.
    * @return The reply message, saying the number of options in the poll.
    */
+  @Messenger("telegram")
   @RequestMapping
   public String pollCheck(Poll poll) {
     return "The poll has " + poll.getOptions().size() + " options";
@@ -45,6 +47,7 @@ public class StartController {
    * @param caption The string parameter is populated with photos description.
    * @return
    */
+  @Messenger("telegram")
   @RequestMapping
   public void photos(List<PhotoSize> photos, String caption) {
   }
@@ -63,6 +66,7 @@ public class StartController {
    * @param update Receive all information about message
    * @return UserName, who sent the message
    */
+  @Messenger("telegram")
   @RequestMapping
   public String getUpdate(Update update){
     return update.getMessage().getFrom().getUserName();

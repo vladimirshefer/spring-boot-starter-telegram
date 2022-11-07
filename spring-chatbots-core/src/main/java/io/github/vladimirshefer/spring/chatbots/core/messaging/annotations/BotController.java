@@ -16,10 +16,4 @@ import java.lang.annotation.*;
 @Component
 @Inherited
 public @interface BotController {
-  /**
-   * Snake case names of messengers which are handled by this controller.
-   * Examples: "telegram", "discord", "slack".
-   * If empty array, then controller is considered for all messengers.
-   */
-  String[] messengers() default {};
 }
