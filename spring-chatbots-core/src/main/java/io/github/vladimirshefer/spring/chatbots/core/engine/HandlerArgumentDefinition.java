@@ -1,6 +1,5 @@
 package io.github.vladimirshefer.spring.chatbots.core.engine;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -11,11 +10,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@EqualsAndHashCode
 @ToString
 public class HandlerArgumentDefinition {
 
   private final HandlerMethodDefinition handlerMethodDefinition;
+
   private final int parameterIndex;
 
   @Getter
@@ -65,9 +64,27 @@ public class HandlerArgumentDefinition {
     return Arrays.stream(parameterAnnotations)
       .anyMatch(annotation ->
         annotation.annotationType().getSimpleName().equals(annotationClassName)
-        || annotation.annotationType().getCanonicalName().equals(annotationClassName)
-        || annotation.annotationType().getName().equals(annotationClassName)
+          || annotation.annotationType().getCanonicalName().equals(annotationClassName)
+          || annotation.annotationType().getName().equals(annotationClassName)
       );
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    HandlerArgumentDefinition that = (HandlerArgumentDefinition) o;
+
+    if (parameterIndex != that.parameterIndex) return false;
+    return handlerMethodDefinition.equals(that.handlerMethodDefinition);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = handlerMethodDefinition.hashCode();
+    result = 31 * result + parameterIndex;
+    return result;
   }
 
 }

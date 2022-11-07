@@ -2,7 +2,6 @@ package io.github.vladimirshefer.spring.chatbots.core.engine;
 
 import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.RequestMapping;
 import io.github.vladimirshefer.spring.chatbots.core.util.ReflectionUtil;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -16,7 +15,6 @@ import java.util.stream.IntStream;
  * Full information about handler method - the method from bot controller.
  */
 @Getter
-@EqualsAndHashCode
 @ToString
 public class HandlerMethodDefinition {
 
@@ -96,6 +94,24 @@ public class HandlerMethodDefinition {
     Method originalMethod
   ) {
     return new HandlerMethodDefinition(controllerName, originalMethod, originalClass, controller);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    HandlerMethodDefinition that = (HandlerMethodDefinition) o;
+
+    if (!getOriginalMethod().equals(that.getOriginalMethod())) return false;
+    return getTargetMethod().equals(that.getTargetMethod());
+  }
+
+  @Override
+  public int hashCode() {
+    int result = getOriginalMethod().hashCode();
+    result = 31 * result + getTargetMethod().hashCode();
+    return result;
   }
 
 }
