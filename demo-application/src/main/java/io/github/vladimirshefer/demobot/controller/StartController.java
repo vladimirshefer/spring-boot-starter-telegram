@@ -26,6 +26,7 @@ public class StartController {
     return "Thank you for your message!";
   }
 
+  @Messenger("telegram")
   @RequestMapping("[a-z]{2}")
   public String regex(String body, Update update) {
     return body;
