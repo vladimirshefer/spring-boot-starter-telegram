@@ -5,6 +5,7 @@ import io.github.vladimirshefer.spring.chatbots.core.util.ReflectionUtil;
 import lombok.Getter;
 import lombok.ToString;
 
+import javax.annotation.Nonnull;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
@@ -26,26 +27,31 @@ public class HandlerMethodDefinition {
   /**
    * The method from original controller class before wrapping into proxies.
    */
+  @Nonnull
   private final Method originalMethod;
 
   /**
    * Original bean class before wrapping into proxies.
    */
+  @Nonnull
   private final Class<?> originalClass;
 
   /**
    * Method or proxy which should be executed instead of original method.
    */
+  @Nonnull
   private final Method targetMethod;
 
   /**
    * The class of the controller proxy wrapper.
    */
+  @Nonnull
   private final Class<?> targetClass;
 
   /**
    * Temp field. Will be removed and only getter will leave.
    */
+  @Nonnull
   private final RequestMapping mappingAnnotation;
 
   public String getRequestMappingValue() {
@@ -81,12 +87,15 @@ public class HandlerMethodDefinition {
   }
 
   @Getter
+  @Nonnull
   private final List<HandlerArgumentDefinition> arguments;
 
+  @Nonnull
   public HandlerArgumentDefinition getArgument(int argumentIndex) {
     return this.getArguments().get(argumentIndex);
   }
 
+  @Nonnull
   public static HandlerMethodDefinition of(
     String controllerName,
     Class<?> originalClass,
