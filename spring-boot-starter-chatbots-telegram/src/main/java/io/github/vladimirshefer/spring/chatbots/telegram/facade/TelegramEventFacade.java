@@ -30,4 +30,9 @@ public class TelegramEventFacade implements EventFacade {
     return telegramMessageFacade;
   }
 
+  @Override
+  public String getMessengerName() {
+    return "telegram";
+  }
+
 }

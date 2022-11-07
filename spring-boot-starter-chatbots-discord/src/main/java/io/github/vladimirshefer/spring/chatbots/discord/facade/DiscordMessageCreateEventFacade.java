@@ -24,4 +24,9 @@ public class DiscordMessageCreateEventFacade implements EventFacade {
     return new DiscordMessageFacade(source.getMessage());
   }
 
+  @Override
+  public String getMessengerName() {
+    return "discord";
+  }
+
 }

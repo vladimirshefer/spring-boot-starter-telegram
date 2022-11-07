@@ -15,7 +15,7 @@ public interface EventFacade extends EntityFacade {
    * on this name, (i.e. for telegram getSource will always return Update)
    * @return messenger simple name.
    */
-//  String messengerName();
+  String getMessengerName();
 
   /**
    * Returns the name of the messenger, where from has the event arrived.
