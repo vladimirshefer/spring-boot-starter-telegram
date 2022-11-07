@@ -10,10 +10,15 @@ import io.github.vladimirshefer.spring.chatbots.core.engine.HandlerMethodDefinit
 public interface MethodFilter {
 
   /**
+   * This method is always called after isCompatible method.
    * @param event the messenger event (i.e. message sent)
    * @param method the controller method information
    * @return false if this event should not be handled by this method. True if you don't mind.
    */
   boolean isMatch(EventFacade event, HandlerMethodDefinition method);
+
+  default boolean isCompatible(HandlerMethodDefinition method) {
+    return true;
+  }
 
 }
