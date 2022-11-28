@@ -38,6 +38,9 @@ public interface MessageFacade extends EntityFacade {
   @Nullable
   String getChatId();
 
+  @Nonnull
+  List<FileFacade> getAttachments();
+
   /**
    * If this message if reply to another message, or references other messages (i.e. via link)
    * then this value should be references to these messages.

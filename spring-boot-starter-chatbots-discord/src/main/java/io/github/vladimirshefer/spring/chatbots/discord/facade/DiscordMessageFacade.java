@@ -2,10 +2,12 @@ package io.github.vladimirshefer.spring.chatbots.discord.facade;
 
 import discord4j.core.object.entity.Message;
 import discord4j.core.object.entity.User;
+import io.github.vladimirshefer.spring.chatbots.core.facade.FileFacade;
 import io.github.vladimirshefer.spring.chatbots.core.facade.MessageFacade;
 import io.github.vladimirshefer.spring.chatbots.core.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
@@ -47,6 +49,12 @@ public class DiscordMessageFacade implements MessageFacade {
   @Override
   public String getChatId() {
     return message.getChannelId().asString();
+  }
+
+  @Nonnull
+  @Override
+  public List<FileFacade> getAttachments() {
+    return null;
   }
 
   @Override

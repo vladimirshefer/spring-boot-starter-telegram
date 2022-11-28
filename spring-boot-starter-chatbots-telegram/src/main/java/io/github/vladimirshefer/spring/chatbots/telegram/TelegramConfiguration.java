@@ -11,10 +11,16 @@ import org.springframework.context.annotation.Configuration;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.GetFile;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.File;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,9 +44,23 @@ public class TelegramConfiguration {
   ) {
     return new TelegramLongPollingBot() {
       @SneakyThrows
+      private File getFile(String id) {
+
+        File file = this.sendApiMethod(new GetFile(id));
+        String fileId = file.getFileUrl(this.getBotToken());
+
+        ReadableByteChannel channel = Channels.newChannel(new URL(fileId).openStream());
+        ByteBuffer buffer = ByteBuffer.allocate(Math.toIntExact(file.getFileSize()));
+        channel.read(buffer);
+        channel.close();
+        byte[] fileBytes = buffer.array();
+        return file;
+      }
+
+      @SneakyThrows
       @Override
       public void onUpdateReceived(Update update) {
-        final TelegramEventFacade telegramEventFacade = new TelegramEventFacade(update);
+        final TelegramEventFacade telegramEventFacade = new TelegramEventFacade(update, this::getFile);
         List<Object> result = updateHandler.handleMessage(telegramEventFacade);
         List<BotApiMethod<?>> answers = result
           .stream()
