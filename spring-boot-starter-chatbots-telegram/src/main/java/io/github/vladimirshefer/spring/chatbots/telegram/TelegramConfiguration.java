@@ -44,7 +44,7 @@ public class TelegramConfiguration {
   ) {
     return new TelegramLongPollingBot() {
       @SneakyThrows
-      private File getFile(String id) {
+      private byte[] getFile(String id) {
 
         File file = this.sendApiMethod(new GetFile(id));
         String fileId = file.getFileUrl(this.getBotToken());
@@ -54,7 +54,7 @@ public class TelegramConfiguration {
         channel.read(buffer);
         channel.close();
         byte[] fileBytes = buffer.array();
-        return file;
+        return fileBytes;
       }
 
       @SneakyThrows

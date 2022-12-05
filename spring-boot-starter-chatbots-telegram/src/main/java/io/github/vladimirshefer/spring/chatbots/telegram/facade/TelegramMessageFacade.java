@@ -4,7 +4,6 @@ import io.github.vladimirshefer.spring.chatbots.core.facade.FileFacade;
 import io.github.vladimirshefer.spring.chatbots.core.facade.MessageFacade;
 import io.github.vladimirshefer.spring.chatbots.core.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
-import org.telegram.telegrambots.meta.api.objects.File;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.User;
 
@@ -12,6 +11,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -19,7 +19,7 @@ import java.util.function.Function;
 public class TelegramMessageFacade implements MessageFacade {
 
   private final Message message;
-  private final Function<String, File> fileGetter;
+  private final Function<String, byte[]> fileGetter;
 
   @NotNull
   @Override
@@ -54,9 +54,9 @@ public class TelegramMessageFacade implements MessageFacade {
   @Override
   public List<FileFacade> getAttachments() {
 
-    File file = fileGetter.apply(message.getDocument().getFileId());
+    byte[] file = fileGetter.apply(message.getDocument().getFileId());
 
-    return Arrays.asList(new TelegramFileFacade( file));
+    return Collections.singletonList(new TelegramFileFacade(file));
   }
 
   @Nullable
