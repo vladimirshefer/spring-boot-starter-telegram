@@ -22,6 +22,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
 @Configuration
@@ -44,17 +45,18 @@ public class TelegramConfiguration {
   ) {
     return new TelegramLongPollingBot() {
       @SneakyThrows
-      private byte[] getFile(String id) {
+      private Callable<byte[]> getFile(String id) {
 
         File file = this.sendApiMethod(new GetFile(id));
-        String fileId = file.getFileUrl(this.getBotToken());
+        String fileUrl = file.getFileUrl(this.getBotToken());
 
-        ReadableByteChannel channel = Channels.newChannel(new URL(fileId).openStream());
-        ByteBuffer buffer = ByteBuffer.allocate(Math.toIntExact(file.getFileSize()));
-        channel.read(buffer);
-        channel.close();
-        byte[] fileBytes = buffer.array();
-        return fileBytes;
+        ByteBuffer buffer;
+        try (ReadableByteChannel channel = Channels.newChannel(new URL(fileUrl).openStream())) {
+          buffer = ByteBuffer.allocate(Math.toIntExact(file.getFileSize()));
+          channel.read(buffer);
+        }
+
+        return buffer::array;
       }
 
       @SneakyThrows

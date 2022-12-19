@@ -13,13 +13,14 @@ import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
 public class TelegramMessageFacade implements MessageFacade {
 
   private final Message message;
-  private final Function<String, byte[]> fileGetter;
+  private final Function<String, Callable<byte[]>> fileGetter;
 
   @NotNull
   @Override
@@ -54,9 +55,9 @@ public class TelegramMessageFacade implements MessageFacade {
   @Override
   public List<FileFacade> getAttachments() {
 
-    byte[] file = fileGetter.apply(message.getDocument().getFileId());
+    FileFacade file = new TelegramFileFacade(message.getDocument().getFileId(), fileGetter);
 
-    return Collections.singletonList(new TelegramFileFacade(file));
+    return Collections.singletonList(file);
   }
 
   @Nullable
