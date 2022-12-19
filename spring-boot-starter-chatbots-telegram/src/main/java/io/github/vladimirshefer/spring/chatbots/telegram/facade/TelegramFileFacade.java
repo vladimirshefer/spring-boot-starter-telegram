@@ -24,9 +24,7 @@ public class TelegramFileFacade implements FileFacade {
   @Nullable
   @Override
   public Future<byte[]> getContent() {
-    FutureTask<byte[]> task = new FutureTask<>(fileGetter.apply(fileId));
-    new Thread(task).start();
-    return task;
+    return new FutureTask<>(fileGetter.apply(fileId));
   }
 
 }
