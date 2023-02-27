@@ -6,6 +6,8 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
+import java.util.concurrent.Callable;
+import java.util.function.Function;
 
 public class TelegramEventFacade implements EventFacade {
 
@@ -13,9 +15,9 @@ public class TelegramEventFacade implements EventFacade {
 
   TelegramMessageFacade telegramMessageFacade;
 
-  public TelegramEventFacade(Update update) {
+  public TelegramEventFacade(Update update, Function<String, Callable<byte[]>> fileGetter) {
     this.update = update;
-    telegramMessageFacade = new TelegramMessageFacade(update.getMessage());
+    telegramMessageFacade = new TelegramMessageFacade(update.getMessage(), fileGetter);
   }
 
   @NotNull
