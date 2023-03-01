@@ -1,4 +1,8 @@
-# Spring Boot Starter Telegram
+
+
+# Spring Boot Starter Telegram 
+
+<img src="docs/logo.svg" alt="drawing" width="100"/> 
 
 Extensible framework for creating Telegram bots with ease.
 
