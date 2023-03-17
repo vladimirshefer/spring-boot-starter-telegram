@@ -15,7 +15,7 @@ This framework is designed to be easy for use by [Spring Boot / Web](https://spr
 
 ## Documentation
 
-[See full documentation here.](https://vladimirshefer.github.io/spring-boot-starter-telegram/)
+[See full documentation here.](https://vladimirshefer.github.io/spring-boot-starter-chatbots/)
 
 ## Easy start
 
@@ -61,8 +61,8 @@ public class BotApplication {
 
 Minimal configuration to start:
 ```properties
-spring.telegram.bot.token=123456789:AAfcxQY2FME0UskU1jQE
-spring.telegram.bot.name=my_demo_bot
+spring.chatbots.telegram.bot.token=123456789:AAfcxQY2FME0UskU1jQE
+spring.chatbots.telegram.bot.name=my_demo_bot
 ```
 [Where do I get the bot token?...](https://core.telegram.org/bots#6-botfather)
 
@@ -74,15 +74,15 @@ spring.telegram.bot.name=my_demo_bot
   <dependencies>
     <dependency>
       <groupId>io.github.vladimirshefer</groupId>
-      <artifactId>spring-boot-starter-telegram</artifactId>
+      <artifactId>spring-boot-starter-chatbots</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
   <repositories>
     <repository>
-      <id>spring-boot-starter-telegram-nexus</id>
+      <id>spring-boot-starter-chatbots-nexus</id>
       <name>Spring Boot Starter Telegram Nexus</name>
-      <url>https://nexus.hetzner.shefer.dev/repository/spring-boot-starter-telegram/</url>
+      <url>https://nexus.hetzner.shefer.dev/repository/spring-boot-starter-chatbots/</url>
     </repository>
   </repositories>
 </project>
@@ -179,7 +179,7 @@ Since the update is the root object of all telegram events, then the method from
   Uses [pengrad/java-telegram-bot-api](https://github.com/pengrad/java-telegram-bot-api) under the hood
   
   
-- [kshashov/spring-boot-starter-telegram](https://github.com/kshashov/spring-boot-starter-telegram/) - 
+- [kshashov/spring-boot-starter-chatbots](https://github.com/kshashov/spring-boot-starter-chatbots/) - 
 
   Spring boot starter for Telegram bots, but with another library under the hood.
   
