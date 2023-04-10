@@ -60,7 +60,7 @@ public class TelegramMessageFacade implements MessageFacade {
     return Collections.singletonList(file);
   }
 
-  @Nullable
+  @Nonnull
   @Override
   public List<MessageFacade> getReferencedMessages() {
     Message replyToMessage = message.getReplyToMessage();
@@ -69,7 +69,7 @@ public class TelegramMessageFacade implements MessageFacade {
       return Arrays.asList(new TelegramMessageFacade(replyToMessage, fileGetter));
     }
 
-    return null;
+    return Collections.emptyList();
   }
 
   @NotNull

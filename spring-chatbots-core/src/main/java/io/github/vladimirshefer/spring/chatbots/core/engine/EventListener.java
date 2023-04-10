@@ -3,6 +3,7 @@ package io.github.vladimirshefer.spring.chatbots.core.engine;
 import io.github.vladimirshefer.spring.chatbots.core.facade.EventFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class EventListener {
 
   private final MappingDefinitionsManager mappingDefinitionsManager;
@@ -35,11 +37,15 @@ public class EventListener {
       .collect(Collectors.toList());
   }
 
-
   @SneakyThrows
   private Object invokeController(HandlerMethodDefinition mappingDefinition, EventFacade event) {
-    Object[] arguments = getArgumentsForControllerMethodInvocation(mappingDefinition, event);
-    return mappingDefinition.getTargetMethod().invoke(mappingDefinition.getController(), arguments);
+    try {
+      Object[] arguments = getArgumentsForControllerMethodInvocation(mappingDefinition, event);
+      return mappingDefinition.getTargetMethod().invoke(mappingDefinition.getController(), arguments);
+    } catch (Throwable throwable) {
+      log.error("Event handler threw exception", throwable);
+    }
+    return null;
   }
 
   public Object[] getArgumentsForControllerMethodInvocation(

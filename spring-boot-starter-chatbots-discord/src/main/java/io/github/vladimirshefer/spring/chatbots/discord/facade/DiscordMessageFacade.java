@@ -14,7 +14,6 @@ import java.util.List;
 
 import static java.util.Collections.singletonList;
 
-
 @RequiredArgsConstructor
 public class DiscordMessageFacade implements MessageFacade {
 

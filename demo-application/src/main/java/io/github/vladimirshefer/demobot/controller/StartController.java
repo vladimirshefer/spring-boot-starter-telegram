@@ -6,6 +6,7 @@ import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.File;
 import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.Messenger;
 import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.RequestMapping;
 import io.github.vladimirshefer.spring.chatbots.telegram.facade.TelegramFileFacade;
+import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.polls.Poll;
@@ -13,6 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.polls.Poll;
 import java.util.List;
 
 @BotController
+@Slf4j
 public class StartController {
 
   /**
@@ -23,12 +25,22 @@ public class StartController {
    */
   @RequestMapping
   public String simpleMessage(String messageText) {
-    return "Thank you for your message!";
+    return "Hello! I will annoyingly answer with this text to every single message.\n" +
+      "Sorry. This is only for demo purposes.";
   }
 
+  @Messenger("telegram")
   @RequestMapping("[a-z]{2}")
   public String regex(String body, Update update) {
     return body;
+  }
+
+  /**
+   * Being called for every single event.
+   */
+  @RequestMapping
+  public void catchAllHandlers() {
+    log.debug("Some event happened");
   }
 
   /**
@@ -46,7 +58,8 @@ public class StartController {
 
   /**
    * Handles messages with photos attached.
-   * @param photos The photos info.
+   *
+   * @param photos  The photos info.
    * @param caption The string parameter is populated with photos description.
    * @return
    */
@@ -56,16 +69,8 @@ public class StartController {
 //  }
 
   /**
-   * Handle any update with any message
-   * @return message;
-   */
-  @RequestMapping
-  public String catchAllHandlers(){
-    return "EMPTY";
-  }
-
-  /**
    * Handle any message. Receive all information about message to parameter update
+   *
    * @param update Receive all information about message
    * @return UserName, who sent the message
    */
@@ -77,7 +82,7 @@ public class StartController {
 
   @Messenger("telegram")
   @RequestMapping
-  public String getUpdate(@File List<FileFacade> file){
+  public String getUpdate(@File List<FileFacade> file) {
     return "file";
   }
 

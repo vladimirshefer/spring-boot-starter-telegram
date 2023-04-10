@@ -1,4 +1,4 @@
-package io.github.vladimirshefer.spring.chatbots.util;
+package io.github.vladimirshefer.spring.chatbots.telegram.util;
 
 import java.lang.reflect.Type;
 

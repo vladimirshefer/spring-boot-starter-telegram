@@ -1,13 +1,17 @@
 package io.github.vladimirshefer.spring.chatbots.telegram.facade;
 
 import io.github.vladimirshefer.spring.chatbots.core.facade.EventFacade;
+import io.github.vladimirshefer.spring.chatbots.core.facade.FileFacade;
 import io.github.vladimirshefer.spring.chatbots.core.facade.MessageFacade;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 import java.util.concurrent.Callable;
 import java.util.function.Function;
+import java.util.Collections;
+import java.util.List;
 
 public class TelegramEventFacade implements EventFacade {
 
@@ -30,6 +34,12 @@ public class TelegramEventFacade implements EventFacade {
   @Override
   public MessageFacade getMessage() {
     return telegramMessageFacade;
+  }
+
+  @Nonnull
+  @Override
+  public List<FileFacade> getAttachments() {
+    return Collections.emptyList();
   }
 
   @Override
