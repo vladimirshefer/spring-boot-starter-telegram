@@ -140,6 +140,12 @@
     </snapshotRepository>
   </distributionManagement>
 
+  <!--https://maven.apache.org/pom.html#issue-management-->
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/vladimirshefer/spring-boot-starter-telegram/issues</url>
+  </issueManagement>
+
 
 </project>
 
