@@ -31,8 +31,11 @@
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>
     <nexus.artifactory.url>
-      https://nexus.hetzner.shefer.dev/repository/spring-boot-starter-telegram/
+      https://nexus.hetzner.shefer.dev/repository/spring-boot-starter-telegram
     </nexus.artifactory.url>
+    <github.artifactory.url>
+      https://maven.pkg.github.com/vladimirshefer/spring-boot-starter-chatbots
+    </github.artifactory.url>
   </properties>
 
   <dependencyManagement>
@@ -104,7 +107,7 @@
             <id>attach-sources</id>
             <phase>package</phase>
             <goals>
-              <goal>jar-no-fork</goal>
+              <goal>jar</goal>
             </goals>
           </execution>
         </executions>
@@ -131,12 +134,12 @@
 
   <distributionManagement>
     <repository>
-      <id>nexus</id>
-      <url>${nexus.artifactory.url}</url>
+      <id>github</id>
+      <url>${github.artifactory.url}</url>
     </repository>
     <snapshotRepository>
-      <id>nexus</id>
-      <url>${nexus.artifactory.url}</url>
+      <id>github</id>
+      <url>${github.artifactory.url}</url>
     </snapshotRepository>
   </distributionManagement>
 
