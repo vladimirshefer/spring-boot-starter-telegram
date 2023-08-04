@@ -4,6 +4,7 @@ import io.github.vladimirshefer.spring.chatbots.core.facade.FileFacade;
 import io.github.vladimirshefer.spring.chatbots.core.facade.MessageFacade;
 import io.github.vladimirshefer.spring.chatbots.core.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
+import org.telegram.telegrambots.meta.api.objects.Document;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.User;
 
@@ -53,7 +54,13 @@ public class TelegramMessageFacade implements MessageFacade {
   @Nonnull
   @Override
   public List<FileFacade> getAttachments() {
-    FileFacade file = new TelegramFileFacade(message.getDocument().getFileId(), fileGetter);
+    Document document = message.getDocument();
+
+    if (document == null) {
+      return Collections.emptyList();
+    }
+
+    FileFacade file = new TelegramFileFacade(document.getFileId(), fileGetter);
 
     return Collections.singletonList(file);
   }
