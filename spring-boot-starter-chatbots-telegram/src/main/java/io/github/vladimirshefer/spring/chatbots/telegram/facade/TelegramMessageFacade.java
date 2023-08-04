@@ -22,7 +22,7 @@ public class TelegramMessageFacade implements MessageFacade {
   private final Message message;
   private final Function<String, Callable<byte[]>> fileGetter;
 
-  @NotNull
+  @Nonnull
   @Override
   public String getMessageText() {
     if (message.getText() != null) return message.getText();
@@ -30,7 +30,7 @@ public class TelegramMessageFacade implements MessageFacade {
     return null;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getId() {
     return message.getMessageId().toString();
@@ -60,7 +60,7 @@ public class TelegramMessageFacade implements MessageFacade {
     return Collections.singletonList(file);
   }
 
-  @Nullable
+  @Nonnull
   @Override
   public List<MessageFacade> getReferencedMessages() {
     Message replyToMessage = message.getReplyToMessage();
