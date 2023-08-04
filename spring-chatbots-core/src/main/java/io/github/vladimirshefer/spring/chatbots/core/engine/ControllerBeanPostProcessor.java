@@ -3,6 +3,7 @@ package io.github.vladimirshefer.spring.chatbots.core.engine;
 import io.github.vladimirshefer.spring.chatbots.core.messaging.annotations.BotController;
 import io.github.vladimirshefer.spring.chatbots.core.util.ReflectionUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class ControllerBeanPostProcessor implements BeanPostProcessor {
 
   private final MappingDefinitionsManager mappingDefinitionsManager;
@@ -23,7 +25,7 @@ public class ControllerBeanPostProcessor implements BeanPostProcessor {
       throws BeansException {
     if (ReflectionUtil.hasAnnotation(bean.getClass(), BotController.class)) {
       telegramControllersClasses.put(beanName, bean.getClass());
-      System.out.println(beanName);
+      log.debug("Registered bot controller " + beanName);
     }
 
     return bean;
