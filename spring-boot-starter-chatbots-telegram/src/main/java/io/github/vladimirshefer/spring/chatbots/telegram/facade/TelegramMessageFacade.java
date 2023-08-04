@@ -10,7 +10,6 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -54,7 +53,6 @@ public class TelegramMessageFacade implements MessageFacade {
   @Nonnull
   @Override
   public List<FileFacade> getAttachments() {
-
     FileFacade file = new TelegramFileFacade(message.getDocument().getFileId(), fileGetter);
 
     return Collections.singletonList(file);
@@ -66,10 +64,10 @@ public class TelegramMessageFacade implements MessageFacade {
     Message replyToMessage = message.getReplyToMessage();
 
     if (replyToMessage != null) {
-      return Arrays.asList(new TelegramMessageFacade(replyToMessage, fileGetter));
+      return Collections.singletonList(new TelegramMessageFacade(replyToMessage, fileGetter));
     }
 
-    return null;
+    return Collections.emptyList();
   }
 
   @NotNull
