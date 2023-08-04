@@ -32,17 +32,34 @@ public interface MessageFacade extends EntityFacade {
   @Nullable
   String getId();
 
+  /**
+   * The user or bot, which has sent this message.
+   * Throwing exceptions from this method is not recommended.
+   * @return author (creator) of the message.
+   */
   @Nullable
   UserFacade getAuthor();
 
+
+  /**
+   *
+   * @return
+   */
   @Nullable
   String getChatId();
 
+
+  /**
+   * Some messengers support attaching files (photos, documents, archives, etc.) to the message.
+   * Returns these attachments, if present and possible to get.
+   * If mwssage has no attachments or private/unavailable attachments, then return empty list.
+   * @return
+   */
   @Nonnull
   List<FileFacade> getAttachments();
 
   /**
-   * If this message if reply to another message, or references other messages (i.e. via link)
+   * If this message is reply to another message, or references other messages (i.e. via link)
    * then this value should be references to these messages.
    * This method never throws any exceptions.
    * If no messages are referenced, then return empty list.
