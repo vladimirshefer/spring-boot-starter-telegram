@@ -17,4 +17,4 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Build starter with Maven
-        run: mvn --projects spring-boot-starter-chatbots clean package
+        run: mvn clean package

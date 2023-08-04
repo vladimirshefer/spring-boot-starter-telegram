@@ -34,7 +34,7 @@
       https://nexus.hetzner.shefer.dev/repository/spring-boot-starter-telegram
     </nexus.artifactory.url>
     <github.artifactory.url>
-      https://maven.pkg.github.com/vladimirshefer/spring-boot-starter-chatbots
+      https://maven.pkg.github.com/vladimirshefer/spring-boot-starter-telegram
     </github.artifactory.url>
   </properties>
 
