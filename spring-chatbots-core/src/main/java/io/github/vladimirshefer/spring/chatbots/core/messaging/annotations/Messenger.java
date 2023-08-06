@@ -3,7 +3,7 @@ package io.github.vladimirshefer.spring.chatbots.core.messaging.annotations;
 import java.lang.annotation.*;
 
 /**
- * Restricts usage only for specific messenger.
+ * Restricts usage only for specific messenger (e.g. "telegram", "slack", etc.).
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
