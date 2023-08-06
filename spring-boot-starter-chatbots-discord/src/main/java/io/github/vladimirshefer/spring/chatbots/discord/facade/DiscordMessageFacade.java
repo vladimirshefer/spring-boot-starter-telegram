@@ -6,16 +6,19 @@ import io.github.vladimirshefer.spring.chatbots.core.facade.FileFacade;
 import io.github.vladimirshefer.spring.chatbots.core.facade.MessageFacade;
 import io.github.vladimirshefer.spring.chatbots.core.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Collections.singletonList;
 
 
 @RequiredArgsConstructor
+@ToString
 public class DiscordMessageFacade implements MessageFacade {
 
   private final Message message;
@@ -54,9 +57,12 @@ public class DiscordMessageFacade implements MessageFacade {
   @Nonnull
   @Override
   public List<FileFacade> getAttachments() {
-    return null;
+    return message.getAttachments().stream()
+      .map(DiscordFileFacade::new)
+      .collect(Collectors.toList());
   }
 
+  @Nonnull
   @Override
   public List<MessageFacade> getReferencedMessages() {
     Message referencedMessage = message.getReferencedMessage().orElse(null);

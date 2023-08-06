@@ -3,9 +3,11 @@ package io.github.vladimirshefer.spring.chatbots.discord.facade;
 import discord4j.core.object.entity.User;
 import io.github.vladimirshefer.spring.chatbots.core.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 import javax.annotation.Nullable;
 
+@ToString
 @RequiredArgsConstructor
 public class DiscordUserFacade implements UserFacade {
 
