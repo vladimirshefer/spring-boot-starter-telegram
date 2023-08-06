@@ -6,8 +6,6 @@ import lombok.ToString;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
@@ -27,8 +25,8 @@ public class TelegramFileFacade implements FileFacade {
 
   @Nullable
   @Override
-  public Future<byte[]> getContent() {
-    return new FutureTask<>(fileGetter.apply(fileId));
+  public Callable<byte[]> getContent() {
+    return fileGetter.apply(fileId);
   }
 
 }

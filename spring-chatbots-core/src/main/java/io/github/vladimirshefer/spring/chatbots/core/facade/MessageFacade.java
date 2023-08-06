@@ -56,7 +56,9 @@ public interface MessageFacade extends EntityFacade {
    * @return
    */
   @Nonnull
-  List<FileFacade> getAttachments();
+  default List<FileFacade> getAttachments() {
+    return Collections.emptyList();
+  }
 
   /**
    * If this message is reply to another message, or references other messages (i.e. via link)

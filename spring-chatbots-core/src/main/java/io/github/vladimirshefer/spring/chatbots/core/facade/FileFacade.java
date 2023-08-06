@@ -1,7 +1,7 @@
 package io.github.vladimirshefer.spring.chatbots.core.facade;
 
-import java.util.concurrent.Future;
+import java.util.concurrent.Callable;
 
 public interface FileFacade extends EntityFacade {
-  Future<byte[]> getContent();
+  Callable<byte[]> getContent();
 }
