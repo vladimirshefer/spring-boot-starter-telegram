@@ -4,6 +4,7 @@ import io.github.vladimirshefer.spring.chatbots.core.facade.FileFacade;
 import io.github.vladimirshefer.spring.chatbots.core.facade.MessageFacade;
 import io.github.vladimirshefer.spring.chatbots.core.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.telegram.telegrambots.meta.api.objects.Document;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.User;
@@ -17,6 +18,7 @@ import java.util.concurrent.Callable;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
+@ToString
 public class TelegramMessageFacade implements MessageFacade {
 
   private final Message message;
@@ -82,4 +84,5 @@ public class TelegramMessageFacade implements MessageFacade {
   public Object getSource() {
     return message;
   }
+
 }

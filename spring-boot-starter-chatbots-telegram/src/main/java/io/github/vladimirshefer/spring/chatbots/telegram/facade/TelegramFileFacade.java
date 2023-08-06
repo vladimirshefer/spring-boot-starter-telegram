@@ -2,6 +2,7 @@ package io.github.vladimirshefer.spring.chatbots.telegram.facade;
 
 import io.github.vladimirshefer.spring.chatbots.core.facade.FileFacade;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.Callable;
@@ -10,9 +11,12 @@ import java.util.concurrent.FutureTask;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
+@ToString
 public class TelegramFileFacade implements FileFacade {
 
   private final String fileId;
+
+  @ToString.Exclude
   private final Function<String, Callable<byte[]>> fileGetter;
 
   @Nullable
