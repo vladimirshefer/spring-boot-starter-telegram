@@ -28,8 +28,6 @@ public class DiscordConfiguration {
     gateway.on(MessageCreateEvent.class)
       .subscribe(event -> eventListener.handleMessage(new DiscordMessageCreateEventFacade(event)));
 
-    gateway.onDisconnect().block();
-
     return gateway;
   }
 
