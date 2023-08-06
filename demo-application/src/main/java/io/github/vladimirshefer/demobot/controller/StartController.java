@@ -20,7 +20,7 @@ public class StartController {
    */
   @RequestMapping
   public String simpleMessage(String messageText) {
-    return "Thank you for your message!";
+    return "Thank you for your text message! '" + messageText + "'";
   }
 
   @RequestMapping("[a-z]{2}")
@@ -58,7 +58,7 @@ public class StartController {
    */
   @RequestMapping
   public String catchAllHandlers(){
-    return "EMPTY";
+    return "We have received some message!";
   }
 
   /**
@@ -72,10 +72,9 @@ public class StartController {
 //    return update.getMessage().getFrom().getUserName();
 //  }
 
-  @Messenger("telegram")
   @RequestMapping
-  public String getUpdate(@File List<FileFacade> file){
-    return "file";
+  public String filesAttached(@File List<FileFacade> files){
+    return "You have " + files.size() + " attachments";
   }
 
 }
