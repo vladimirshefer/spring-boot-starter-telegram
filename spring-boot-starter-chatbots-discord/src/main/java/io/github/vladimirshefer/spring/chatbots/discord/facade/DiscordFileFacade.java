@@ -4,11 +4,10 @@ import discord4j.core.object.entity.Attachment;
 import io.github.vladimirshefer.spring.chatbots.core.facade.FileFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import sun.misc.IOUtils;
+import org.apache.commons.io.IOUtils;
 
 import javax.annotation.Nullable;
-import java.io.BufferedInputStream;
-import java.net.URL;
+import java.net.URI;
 import java.util.concurrent.Callable;
 
 @ToString
@@ -18,10 +17,7 @@ class DiscordFileFacade implements FileFacade {
 
     @Override
     public Callable<byte[]> getContent() {
-        return () -> {
-            BufferedInputStream in = new BufferedInputStream(new URL(attachment.getUrl()).openStream());
-            return IOUtils.readAllBytes(in);
-        };
+        return () -> IOUtils.toByteArray(new URI(attachment.getUrl()));
     }
 
     @Nullable
